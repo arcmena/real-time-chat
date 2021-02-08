@@ -14,6 +14,10 @@ const schema = gql`
   type Mutation {
     sendMessage(user: String!, content: String!): ID!
   }
+
+  type Subscription {
+    messages: [Message!]
+  }
 `;
 
 module.exports = schema;
