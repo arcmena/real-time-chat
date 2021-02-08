@@ -20,4 +20,16 @@ const Mutation = {
   `,
 };
 
-export { Query, Mutation };
+const Subscription = {
+  SUBSCRIBE_MESSAGES: gql`
+    subscription {
+      messages {
+        id
+        user
+        content
+      }
+    }
+  `,
+};
+
+export { Query, Mutation, Subscription };

@@ -1,13 +1,14 @@
 import { useState } from "react";
-import { useQuery, useMutation } from "@apollo/client";
+import { useSubscription, useMutation } from "@apollo/client";
 
-import { Query, Mutation } from "../../../graphql";
+import { Subscription, Mutation } from "../../../graphql";
 
 import Messages from "../Messages";
 import MessageRow from "../MessageRow";
 
 const ChatView = () => {
-  const { data, loading, error } = useQuery(Query.GET_MESSAGES);
+  const { data } = useSubscription(Subscription.SUBSCRIBE_MESSAGES);
+
   const [sendMessage] = useMutation(Mutation.SEND_MESSAGE);
 
   const [formValues, setFormValues] = useState({
@@ -26,8 +27,6 @@ const ChatView = () => {
 
     if (formValues.content === "") return;
 
-    console.log(formValues);
-
     sendMessage({
       variables: formValues,
     });
@@ -35,9 +34,7 @@ const ChatView = () => {
     formValues.content = "";
   };
 
-  if (loading) return <p>Loading...</p>;
-
-  if (error) return <p>Error</p>;
+  if (!data) return <>Error...</>;
 
   return (
     <div className="App">
