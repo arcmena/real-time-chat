@@ -24,7 +24,16 @@ const resolvers = {
   },
   Subscription: {
     messages: {
-      subscribe: (_, args, { pubsub }) => pubsub.asyncIterator(SEND_MESSAGE),
+      subscribe: (_, args, { pubsub }) => {
+        setTimeout(
+          () =>
+            pubsub.publish(SEND_MESSAGE, {
+              messages,
+            }),
+          0
+        );
+        return pubsub.asyncIterator(SEND_MESSAGE);
+      },
     },
   },
 };
