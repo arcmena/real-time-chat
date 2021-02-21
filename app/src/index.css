@@ -30,4 +30,7 @@ body {
 
 :root {
   --height-title-footer: 16rem;
+  --colors-primary-green: #359271;
+  --colors-primary-gray: #a5b0bd;
+  --colors-background: #202c3d;
 }

@@ -1,0 +1,48 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  padding-bottom: 1rem;
+
+  width: 100%;
+}
+
+.flex_end {
+  justify-content: flex-end;
+}
+
+.flex_start {
+  justify-content: flex-start;
+}
+
+.author {
+  height: 4rem;
+  width: 4rem;
+  margin-right: 1rem;
+  padding-top: 0.6rem;
+
+  border-radius: 50%;
+  border: 2px solid black;
+
+  text-align: center;
+  font-size: 1.5rem;
+
+  background-color: #1f1f1f;
+}
+
+.content {
+  padding: 1rem;
+  border-radius: 1rem;
+  max-width: 60%;
+
+  font-size: 2rem;
+}
+
+.mine {
+  background-color: var(--colors-primary-green);
+  color: white;
+}
+
+.not_mine {
+  background-color: var(--colors-primary-gray);
+  color: black;
+}

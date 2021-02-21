@@ -39,7 +39,7 @@ const ChatView = () => {
   if (!data) return <>Error...</>;
 
   return (
-    <div className="chat">
+    <div className={s.wrapper}>
       <Messages messages={data.messages} user={formValues.user} />
       <MessageRow
         user={formValues.user}
