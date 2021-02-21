@@ -40,7 +40,7 @@ const ChatView = () => {
 
   return (
     <div className={s.wrapper}>
-      <h1>ArctiChasadast</h1>
+      <h1 className="title">ArctiChasadast</h1>
       <div className="chat">
         <Messages messages={data.messages} user={formValues.user} />
         <MessageRow
