@@ -1,3 +1,1 @@
-import ChatView from "./ChatView";
-
-export { ChatView };
+export { default as ChatView } from "./ChatView";

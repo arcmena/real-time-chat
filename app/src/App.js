@@ -4,6 +4,7 @@ import "./App.css";
 import ChatClient from "./lib/ChatClient";
 
 import { ChatView } from "./components/chat";
+import { Header } from "./components/common";
 
 import s from "./App.module.css";
 
@@ -11,9 +12,7 @@ const App = () => {
   return (
     <ChatClient>
       <div className={s.wrapper}>
-        <div className={s.title}>
-          <h1>ArctiChat</h1>
-        </div>
+        <Header />
         <ChatView />
       </div>
     </ChatClient>
