@@ -39,17 +39,14 @@ const ChatView = () => {
   if (!data) return <>Error...</>;
 
   return (
-    <div className={s.wrapper}>
-      <h1 className="title">ArctiChasadast</h1>
-      <div className="chat">
-        <Messages messages={data.messages} user={formValues.user} />
-        <MessageRow
-          user={formValues.user}
-          content={formValues.content}
-          onChange={handleChange}
-          onSubmit={handleSubmit}
-        />
-      </div>
+    <div className="chat">
+      <Messages messages={data.messages} user={formValues.user} />
+      <MessageRow
+        user={formValues.user}
+        content={formValues.content}
+        onChange={handleChange}
+        onSubmit={handleSubmit}
+      />
     </div>
   );
 };

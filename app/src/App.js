@@ -5,10 +5,17 @@ import ChatClient from "./lib/ChatClient";
 
 import { ChatView } from "./components/chat";
 
+import s from "./App.module.css";
+
 const App = () => {
   return (
     <ChatClient>
-      <ChatView />
+      <div className={s.wrapper}>
+        <div className={s.title}>
+          <h1>ArctiChat</h1>
+        </div>
+        <ChatView />
+      </div>
     </ChatClient>
   );
 };

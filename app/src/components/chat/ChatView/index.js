@@ -1,1 +1,1 @@
-export { default } from "./ChatView.js";
+export { default } from "./ChatView";
