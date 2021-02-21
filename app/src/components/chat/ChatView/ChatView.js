@@ -6,7 +6,7 @@ import s from "./ChatView.module.css";
 import { Subscription, Mutation } from "../../../graphql";
 
 import Messages from "../Messages";
-import MessageRow from "../MessageRow";
+import ChatFooter from "../ChatFooter";
 
 const ChatView = () => {
   const { data } = useSubscription(Subscription.SUBSCRIBE_MESSAGES);
@@ -39,9 +39,9 @@ const ChatView = () => {
   if (!data) return <>Error...</>;
 
   return (
-    <div className={s.wrapper}>
+    <div className={s.root}>
       <Messages messages={data.messages} user={formValues.user} />
-      <MessageRow
+      <ChatFooter
         user={formValues.user}
         content={formValues.content}
         onChange={handleChange}

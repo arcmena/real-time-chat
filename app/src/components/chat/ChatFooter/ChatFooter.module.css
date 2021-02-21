@@ -1,0 +1,27 @@
+.root {
+  width: 100%;
+
+  margin: 2rem 0 1.5rem;
+
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-gap: 1rem;
+  gap: 1rem;
+
+  border: 1px solid var(--colors-primary-gray-2);
+  border-radius: 0.75rem;
+  padding: 0.75rem;
+}
+
+.message {
+  grid-column: span 5 / span 5;
+}
+
+.message input {
+  font-size: 1.75rem;
+  color: var(--colors-primary-white);
+}
+
+.send_button {
+  grid-column: span 1 / span 1;
+}

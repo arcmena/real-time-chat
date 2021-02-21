@@ -29,8 +29,10 @@ body {
 }
 
 :root {
-  --height-title-footer: 16rem;
+  --height-title-footer: 19.4rem;
   --colors-primary-green: #359271;
-  --colors-primary-gray: #a5b0bd;
+  --colors-primary-gray: #a5b0bd7a;
+  --colors-primary-gray-2: #696c6f;
+  --colors-primary-white: #e0e0e0;
   --colors-background: #202c3d;
 }

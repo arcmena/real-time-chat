@@ -1,0 +1,17 @@
+.root {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.field {
+  width: 100%;
+  height: 100%;
+  background: none;
+  border: none;
+  padding: 1rem 1.3rem;
+}
+
+.field:hover {
+  outline: none;
+}
