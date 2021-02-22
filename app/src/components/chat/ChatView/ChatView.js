@@ -36,7 +36,12 @@ const ChatView = () => {
     formValues.content = "";
   };
 
-  if (!data) return <>Error...</>;
+  if (!data)
+    return (
+      <div className={s.root}>
+        <h1>Oops, something went wrong</h1>
+      </div>
+    );
 
   return (
     <div className={s.root}>

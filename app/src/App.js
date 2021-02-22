@@ -1,20 +1,15 @@
-import "./App.css";
-
 //Chat Client to provide the connection with the backend
 import ChatClient from "./lib/ChatClient";
 
 import { ChatView } from "./components/chat";
-import { Header } from "./components/common";
-
-import s from "./App.module.css";
+import { Layout } from "./components/common";
 
 const App = () => {
   return (
     <ChatClient>
-      <div className={s.wrapper}>
-        <Header />
+      <Layout>
         <ChatView />
-      </div>
+      </Layout>
     </ChatClient>
   );
 };

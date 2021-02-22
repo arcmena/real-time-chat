@@ -2,7 +2,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { WebSocketLink } from "@apollo/client/link/ws";
 
 const link = new WebSocketLink({
-  uri: `ws://localhost:4000/graphql`,
+  uri: process.env.REACT_APP_GRAPHQL_WS,
   options: {
     reconnect: true,
   },
@@ -10,7 +10,7 @@ const link = new WebSocketLink({
 
 const client = new ApolloClient({
   link,
-  uri: "http://localhost:4000",
+  uri: process.env.REACT_APP_GRAPHQL_SCHEMA,
   cache: new InMemoryCache(),
 });
 

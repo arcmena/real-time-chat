@@ -1,9 +1,11 @@
-.wrapper {
+.root {
   background-color: var(--colors-background);
   min-height: 100vh;
+}
+
+.main {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: white;
 }
