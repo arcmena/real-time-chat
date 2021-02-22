@@ -1,5 +1,6 @@
 //Chat Client to provide the connection with the backend
 import ChatClient from "./lib/ChatClient";
+import { UIProvider } from "./contexts/UIContext";
 
 import { ChatView } from "./components/chat";
 import { Layout } from "./components/common";
@@ -7,9 +8,11 @@ import { Layout } from "./components/common";
 const App = () => {
   return (
     <ChatClient>
-      <Layout>
-        <ChatView />
-      </Layout>
+      <UIProvider>
+        <Layout>
+          <ChatView />
+        </Layout>
+      </UIProvider>
     </ChatClient>
   );
 };
