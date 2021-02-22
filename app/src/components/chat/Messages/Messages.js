@@ -6,9 +6,11 @@ const Messages = ({ messages, user }) => {
   return (
     <div className={s.wrapper}>
       <div className={s.container}>
-        {messages.map((item) => (
-          <Message message={item} key={item.id} user={user} />
-        ))}
+        {!user
+          ? null
+          : messages.map((item) => (
+              <Message message={item} key={item.id} user={user} />
+            ))}
       </div>
     </div>
   );

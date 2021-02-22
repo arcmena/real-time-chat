@@ -1,3 +1,15 @@
+@keyframes shinkAndBack {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 .root {
   width: 100%;
 
@@ -24,4 +36,8 @@
 
 .send_button {
   grid-column: span 1 / span 1;
+}
+
+.animated {
+  animation: shinkAndBack 0.4s ease-in;
 }

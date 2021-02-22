@@ -1,0 +1,27 @@
+.root {
+  position: fixed;
+  z-index: 10;
+
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: var(--colors-backdrop);
+}
+
+.modal {
+  position: relative;
+
+  background-color: var(--colors-primary-white);
+  -webkit-box-shadow: 6px 4px 0px 2px var(--colors-primary-green);
+  -moz-box-shadow: 6px 4px 0px 2px var(--colors-primary-green);
+  box-shadow: 6px 4px 0px 2px var(--colors-primary-green);
+
+  padding: 3rem;
+  margin: 0 3rem;
+}
