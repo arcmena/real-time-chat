@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useSubscription, useMutation } from "@apollo/client";
 
 import { Subscription, Mutation } from "../../../graphql";
@@ -15,6 +15,8 @@ const ChatView = () => {
   const [sendMessage] = useMutation(Mutation.SEND_MESSAGE);
 
   const { user } = useUI();
+
+  const bottomRef = useRef(null);
 
   const [formValues, setFormValues] = useState({
     content: "",
@@ -41,6 +43,15 @@ const ChatView = () => {
     formValues.content = "";
   };
 
+  useEffect(() => {
+    if (bottomRef.current !== null)
+      bottomRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+        inline: "nearest",
+      });
+  }, [data]);
+
   if (!data)
     return (
       <div className={s.root}>
@@ -50,7 +61,7 @@ const ChatView = () => {
 
   return (
     <div className={s.root}>
-      <Messages messages={data.messages} user={user} />
+      <Messages messages={data.messages} user={user} bottomRef={bottomRef} />
       <ChatFooter
         user={user}
         content={formValues.content}

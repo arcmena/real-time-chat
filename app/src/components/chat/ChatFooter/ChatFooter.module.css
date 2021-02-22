@@ -20,9 +20,11 @@
   grid-gap: 1rem;
   gap: 1rem;
 
-  border: 1px solid var(--colors-primary-gray-2);
-  border-radius: 0.75rem;
   padding: 0.75rem;
+
+  -webkit-box-shadow: 2px 2px 0px 0px var(--colors-primary-green);
+  -moz-box-shadow: 2px 2px 0px 0px var(--colors-primary-green);
+  box-shadow: 2px 2px 0px 0px var(--colors-primary-green);
 }
 
 .message {

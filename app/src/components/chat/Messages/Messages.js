@@ -2,15 +2,14 @@ import Message from "../Message";
 
 import s from "./Messages.module.css";
 
-const Messages = ({ messages, user }) => {
+const Messages = ({ messages, user, bottomRef }) => {
   return (
     <div className={s.wrapper}>
       <div className={s.container}>
-        {!user
-          ? null
-          : messages.map((item) => (
-              <Message message={item} key={item.id} user={user} />
-            ))}
+        {messages.map((item) => (
+          <Message message={item} key={item.id} user={user} />
+        ))}
+        <div ref={bottomRef} />
       </div>
     </div>
   );
