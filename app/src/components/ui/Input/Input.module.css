@@ -12,6 +12,6 @@
   padding: 1rem 1.3rem;
 }
 
-.field:hover {
+.field:focus {
   outline: none;
 }

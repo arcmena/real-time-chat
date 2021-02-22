@@ -14,7 +14,7 @@ const ChatFooter = ({ content, onSubmit, onChange }) => {
         defaultValue={content}
       />
       <Button className={s.send_button} type="submit">
-        <img src={SendIcon} alt="send" width="25" height="25" />
+        <img src={SendIcon} alt="send" width="27" height="27" />
       </Button>
     </form>
   );
