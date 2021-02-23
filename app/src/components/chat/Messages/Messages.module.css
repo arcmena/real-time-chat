@@ -1,5 +1,4 @@
 .wrapper {
-  min-height: calc(100vh - var(--height-title-footer));
   max-height: calc(100vh - var(--height-title-footer));
   overflow-y: hidden;
 
