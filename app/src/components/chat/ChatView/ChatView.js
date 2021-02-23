@@ -8,8 +8,6 @@ import { useUI } from "../../../contexts/UIContext";
 import Messages from "../Messages";
 import ChatFooter from "../ChatFooter";
 
-import s from "./ChatView.module.css";
-
 const ChatView = () => {
   const { data } = useSubscription(Subscription.SUBSCRIBE_MESSAGES);
   const [sendMessage] = useMutation(Mutation.SEND_MESSAGE);
@@ -54,13 +52,13 @@ const ChatView = () => {
 
   if (!data)
     return (
-      <div className={s.root}>
+      <>
         <h1>Oops, something went wrong</h1>
-      </div>
+      </>
     );
 
   return (
-    <div className={s.root}>
+    <>
       <Messages messages={data.messages} user={user} bottomRef={bottomRef} />
       <ChatFooter
         user={user}
@@ -68,7 +66,7 @@ const ChatView = () => {
         onChange={handleChange}
         onSubmit={handleSubmit}
       />
-    </div>
+    </>
   );
 };
 

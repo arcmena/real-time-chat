@@ -1,6 +1,7 @@
 .wrapper {
-  max-height: calc(100vh - var(--height-title-footer));
   overflow-y: hidden;
+
+  width: 100%;
 
   display: flex;
   flex-direction: column;

@@ -9,5 +9,11 @@
   align-items: center;
   justify-content: flex-end;
 
-  min-height: calc(100vh - var(--height-title));
+  min-height: calc(100% - var(--height-title));
+  
+
+  width: 100%;
+  max-width: 800px;
+  padding: 1.3rem 2rem;
+  margin: 0 auto;
 }
