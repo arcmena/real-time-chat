@@ -41,13 +41,15 @@ const ChatView = () => {
     formValues.content = "";
   };
 
+  const focusOnBottomDiv = () =>
+    bottomRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+      inline: "nearest",
+    });
+
   useEffect(() => {
-    if (bottomRef.current !== null)
-      bottomRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "end",
-        inline: "nearest",
-      });
+    if (bottomRef.current !== null) focusOnBottomDiv();
   }, [data]);
 
   if (!data)
@@ -65,6 +67,7 @@ const ChatView = () => {
         content={formValues.content}
         onChange={handleChange}
         onSubmit={handleSubmit}
+        focusOnBottomDiv={focusOnBottomDiv}
       />
     </>
   );

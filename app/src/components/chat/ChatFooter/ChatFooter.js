@@ -7,7 +7,7 @@ import { Button, Input } from "../../ui";
 
 import s from "./ChatFooter.module.css";
 
-const ChatFooter = ({ content, onSubmit, onChange }) => {
+const ChatFooter = ({ content, onSubmit, onChange, focusOnBottomDiv }) => {
   const [pressed, setPressed] = useState(false);
 
   const animate = () => {
@@ -24,6 +24,7 @@ const ChatFooter = ({ content, onSubmit, onChange }) => {
         placeholder="Send message"
         name="content"
         value={content}
+        onFocus={focusOnBottomDiv}
       />
       <Button
         className={cn(s.send_button, pressed && s.animated)}
