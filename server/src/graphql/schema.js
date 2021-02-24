@@ -5,6 +5,7 @@ const schema = gql`
     id: ID!
     user: String!
     content: String!
+    sentAt: String!
   }
 
   type Query {

@@ -7,12 +7,13 @@ const resolvers = {
     messages: () => messages,
   },
   Mutation: {
-    sendMessage: (_, { user, content }, { pubsub }) => {
+    sendMessage: (_, { user, content, sentAt }, { pubsub }) => {
       const id = messages.length;
       messages.push({
         id,
         user,
         content,
+        sentAt,
       });
 
       pubsub.publish(SEND_MESSAGE, {
