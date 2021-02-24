@@ -42,6 +42,8 @@
   color: white;
 
   position: relative;
+
+  box-shadow: 3px 3px 0px 0px var(--colors-backdrop);
 }
 
 .mine:after {
@@ -62,6 +64,8 @@
   color: black;
 
   position: relative;
+
+  box-shadow: 3px 3px 0px 0px var(--colors-backdrop);
 }
 
 .not_mine:after {
