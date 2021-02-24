@@ -31,7 +31,6 @@
 
 .content {
   padding: 1rem;
-  border-radius: 0.2rem;
   max-width: 60%;
 
   font-size: 2rem;
@@ -41,9 +40,39 @@
 .mine {
   background-color: var(--colors-primary-green);
   color: white;
+
+  position: relative;
+}
+
+.mine:after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 0;
+  z-index: 1;
+  border-style: solid;
+  border-width: 12px 10px 0 0;
+  border-color: var(--colors-primary-green) transparent transparent transparent;
+  top: 0;
+  right: -10px;
 }
 
 .not_mine {
   background-color: var(--colors-primary-gray);
   color: black;
+
+  position: relative;
+}
+
+.not_mine:after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 0;
+  z-index: 1;
+  border-style: solid;
+  border-width: 0 12px 10px 0;
+  border-color: transparent var(--colors-primary-gray) transparent transparent;
+  top: 0;
+  left: -12px;
 }

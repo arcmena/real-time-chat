@@ -10,4 +10,6 @@
 
 .container {
   overflow: auto;
+
+  padding-right: 1.2rem;
 }
