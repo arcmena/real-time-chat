@@ -7,6 +7,7 @@ const Query = {
         id
         user
         content
+        sentAt
       }
     }
   `,
@@ -14,8 +15,8 @@ const Query = {
 
 const Mutation = {
   SEND_MESSAGE: gql`
-    mutation($user: String!, $content: String!) {
-      sendMessage(user: $user, content: $content)
+    mutation($user: String!, $content: String!, $sentAt: String!) {
+      sendMessage(user: $user, content: $content, sentAt: $sentAt)
     }
   `,
 };
@@ -27,6 +28,7 @@ const Subscription = {
         id
         user
         content
+        sentAt
       }
     }
   `,

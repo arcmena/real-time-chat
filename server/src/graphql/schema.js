@@ -13,7 +13,7 @@ const schema = gql`
   }
 
   type Mutation {
-    sendMessage(user: String!, content: String!): ID!
+    sendMessage(user: String!, content: String!, sentAt: String!): ID!
   }
 
   type Subscription {

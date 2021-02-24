@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { useSubscription, useMutation } from "@apollo/client";
+import { format } from "date-fns";
 
 import { Subscription, Mutation } from "../../../graphql";
 
@@ -29,12 +30,15 @@ const ChatView = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    const date = new Date();
+
     if (formValues.content === "") return;
 
     sendMessage({
       variables: {
         user,
         content: formValues.content,
+        sentAt: format(date, "MM/dd/yyyy 'at' hh:mm a"),
       },
     });
 

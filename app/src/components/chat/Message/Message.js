@@ -1,7 +1,7 @@
 import cn from "classnames";
 import s from "./Message.module.css";
 
-const Message = ({ message: { user: messageUser, content }, user }) => {
+const Message = ({ message: { user: messageUser, content, sentAt }, user }) => {
   return (
     <div
       className={cn(
@@ -10,7 +10,9 @@ const Message = ({ message: { user: messageUser, content }, user }) => {
       )}
     >
       {user !== messageUser && (
-        <span className={s.author}>{messageUser.toUpperCase()}</span>
+        <span className={s.author}>
+          {messageUser.toUpperCase()} - {sentAt}
+        </span>
       )}
       <div
         className={cn(s.content, user === messageUser ? s.mine : s.not_mine)}
