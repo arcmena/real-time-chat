@@ -49,5 +49,6 @@ html {
   --colors-primary-black: #1b1b1b;
   --colors-primary-red: #c50000;
   --colors-background: #202c3d;
+  --colors-background-2: #1d293a;
   --colors-backdrop: rgba(0, 0, 0, 0.35);
 }

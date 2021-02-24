@@ -25,6 +25,12 @@
   -webkit-box-shadow: 2px 2px 0px 0px var(--colors-primary-green);
   -moz-box-shadow: 2px 2px 0px 0px var(--colors-primary-green);
   box-shadow: 2px 2px 0px 0px var(--colors-primary-green);
+
+  transition: all 0.2s ease-out;
+}
+
+.focused {
+  background-color: var(--colors-background-2);
 }
 
 .message {

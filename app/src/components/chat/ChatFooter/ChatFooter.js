@@ -9,22 +9,34 @@ import s from "./ChatFooter.module.css";
 
 const ChatFooter = ({ content, onSubmit, onChange, focusOnBottomDiv }) => {
   const [pressed, setPressed] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
 
   const animate = () => {
+    if (content === "") return;
+
     setPressed(true);
+
     setTimeout(() => {
       setPressed(false);
     }, 400);
   };
 
   return (
-    <form className={s.root} onSubmit={onSubmit} onChange={onChange}>
+    <form
+      className={cn(s.root, isFocused && s.focused)}
+      onSubmit={onSubmit}
+      onChange={onChange}
+    >
       <Input
         className={s.message}
         placeholder="Send message"
         name="content"
         value={content}
-        onFocus={focusOnBottomDiv}
+        onFocus={() => {
+          focusOnBottomDiv();
+          setIsFocused(true);
+        }}
+        onBlur={() => setIsFocused(false)}
       />
       <Button
         className={cn(s.send_button, pressed && s.animated)}
