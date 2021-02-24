@@ -4,6 +4,8 @@
   padding-bottom: 1rem;
 
   width: 100%;
+
+  position: relative;
 }
 
 .flex_end {
@@ -15,18 +17,14 @@
 }
 
 .author {
-  height: 4rem;
-  width: 4rem;
-  margin-right: 1rem;
-  padding-top: 0.6rem;
+  position: absolute;
+  bottom: 1.3rem;
+  left: 0.5rem;
 
-  border-radius: 50%;
-  border: 2px solid black;
+  font-size: 1.2rem;
+  color: var(--colors-primary-gray-3);
 
-  text-align: center;
-  font-size: 1.5rem;
-
-  background-color: #1f1f1f;
+  user-select: none;
 }
 
 .content {
@@ -60,6 +58,7 @@
 }
 
 .not_mine {
+  margin-bottom: 2.2rem;
   background-color: var(--colors-primary-gray);
   color: black;
 

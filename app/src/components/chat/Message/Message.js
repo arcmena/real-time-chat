@@ -10,7 +10,7 @@ const Message = ({ message: { user: messageUser, content }, user }) => {
       )}
     >
       {user !== messageUser && (
-        <div className={s.author}>{messageUser.slice(0, 2).toUpperCase()}</div>
+        <span className={s.author}>{messageUser.toUpperCase()}</span>
       )}
       <div
         className={cn(s.content, user === messageUser ? s.mine : s.not_mine)}
