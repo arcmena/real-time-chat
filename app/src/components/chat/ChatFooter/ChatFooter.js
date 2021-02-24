@@ -37,7 +37,7 @@ const ChatFooter = ({ content, onSubmit, onChange, focusOnBottomDiv }) => {
 
           setTimeout(() => {
             focusOnBottomDiv();
-          }, 100);
+          }, 200);
         }}
         onBlur={() => setIsFocused(false)}
       />
