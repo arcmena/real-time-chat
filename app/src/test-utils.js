@@ -1,14 +1,11 @@
 import { render } from '@testing-library/react';
 
 import { UIProvider } from './contexts/UIContext';
-import ChatClient from './lib/ChatClient';
 
 const withProviders = ({ children }) => (
-    <ChatClient>
-        <UIProvider>
-            {children}
-        </UIProvider>
-    </ChatClient>
+    <UIProvider>
+        {children}
+    </UIProvider>
 );
 
 const customRender = (ui, options) => render(ui, { wrapper: withProviders, ...options })
