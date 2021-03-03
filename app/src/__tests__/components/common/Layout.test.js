@@ -15,4 +15,5 @@ it('should close the auth modal when logged in', () => {
     fireEvent.click(getByText(/Enter!/))
 
     expect(queryByText(/Hello there!/i)).toBeNull();
+    expect(queryByText(/Enter!/)).toBeNull();
 });
