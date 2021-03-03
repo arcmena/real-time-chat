@@ -23,15 +23,15 @@ const TestProps = () => {
         >
             Click to increase: {count}
         </Button>
-    )
-}
+    );
+};
 
 it('function properly passing props', () => {
-    const { getByText } = render(<TestProps />)
+    const { getByText, queryByText } = render(<TestProps />);
 
-    expect(getByText(/Click to increase: 0/))
+    expect(queryByText(/Click to increase: 0/)).toBeDefined();
 
-    fireEvent.click(getByText(/Click to increase/))
+    fireEvent.click(getByText(/Click to increase/));
 
-    expect(getByText(/Click to increase: 1/))
+    expect(queryByText(/Click to increase: 1/)).toBeDefined();
 });
