@@ -44,6 +44,8 @@ it('should render just the message as mine when the user is the same as the send
 });
 
 it('should throw if message is missing any parameter', () => {
+    console.error = jest.fn()
+
     expect(() => render(
         <Message 
             message={mockIncompleteMessage} 
