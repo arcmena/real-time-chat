@@ -1,4 +1,8 @@
+const { PubSub } = require("graphql-subscriptions");
+
 const { SEND_MESSAGE } = require("./channels");
+
+const pubsub = new PubSub();
 
 const messages = [];
 
@@ -7,7 +11,7 @@ const resolvers = {
     messages: () => messages,
   },
   Mutation: {
-    sendMessage: (_, { user, content, sentAt }, { pubsub }) => {
+    sendMessage: (_, { user, content, sentAt }) => {
       const id = messages.length;
       messages.push({
         id,
@@ -25,7 +29,7 @@ const resolvers = {
   },
   Subscription: {
     messages: {
-      subscribe: (_, args, { pubsub }) => {
+      subscribe: (_, args) => {
         setTimeout(
           () =>
             pubsub.publish(SEND_MESSAGE, {
