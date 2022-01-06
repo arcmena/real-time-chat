@@ -4,7 +4,7 @@
   "main": "src/index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node src/index.js"
+    "start": "nodemon --exec babel-node src/index.js -e js,graphql"
   },
   "dependencies": {
     "@graphql-tools/schema": "^8.3.1",
@@ -12,5 +12,12 @@
     "graphql": "^16.2.0",
     "graphql-subscriptions": "^2.0.0",
     "subscriptions-transport-ws": "^0.11.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.16.7",
+    "@babel/core": "^7.16.7",
+    "@babel/node": "^7.16.7",
+    "@babel/preset-env": "^7.16.7",
+    "nodemon": "^2.0.15"
   }
 }

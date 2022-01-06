@@ -1,6 +1,6 @@
-const { PubSub } = require("graphql-subscriptions");
+import { PubSub } from "graphql-subscriptions";
 
-const { SEND_MESSAGE } = require("./channels");
+import { SEND_MESSAGE } from "./channels";
 
 const pubsub = new PubSub();
 

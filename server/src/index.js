@@ -1,14 +1,14 @@
-const { createServer } = require("http");
-const { execute, subscribe } = require("graphql");
-const { SubscriptionServer } = require("subscriptions-transport-ws");
-const { makeExecutableSchema } = require("@graphql-tools/schema");
-const express = require("express");
-const { ApolloServer } = require("apollo-server-express") ;
+import { createServer } from "http";
+import { execute, subscribe } from "graphql";
+import { SubscriptionServer } from "subscriptions-transport-ws";
+import { makeExecutableSchema } from "@graphql-tools/schema";
+import express from "express";
+import { ApolloServer } from "apollo-server-express" ;
 
-const resolvers = require("./graphql/resolvers");
-const typeDefs = require("./graphql/schema");
+import resolvers from "./graphql/resolvers";
+import typeDefs from "./graphql/schema";
 
-(async function () {
+(async () => {
   const app = express();
 
   const httpServer = createServer(app);
@@ -37,12 +37,17 @@ const typeDefs = require("./graphql/schema");
   });
 
   await server.start();
-  
+
   server.applyMiddleware({ app });
 
   const PORT = 4000;
 
-  httpServer.listen(PORT, () =>
-    console.log(`🚀 Server ready at http://localhost:${PORT}/graphql`)
-  );
+  httpServer.listen(PORT, () => {
+    console.log(
+      `🚀 Query endpoint ready at http://localhost:${PORT}${server.graphqlPath}`
+    );
+    console.log(
+      `🚀 Subscription endpoint ready at ws://localhost:${PORT}${server.graphqlPath}`
+    );
+  });
 })();

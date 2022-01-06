@@ -1,4 +1,4 @@
-const { gql } = require("apollo-server");
+import { gql } from "apollo-server";
 
 const schema = gql`
   type Message {
@@ -21,4 +21,4 @@ const schema = gql`
   }
 `;
 
-module.exports = schema;
+export default schema
