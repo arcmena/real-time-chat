@@ -1,46 +1,7 @@
-import { PubSub } from "graphql-subscriptions";
+import path from 'path'
+import { loadFilesSync } from '@graphql-tools/load-files'
+import { mergeResolvers } from '@graphql-tools/merge'
 
-import { SEND_MESSAGE } from "./channels";
+const resolversArray = loadFilesSync(path.join(__dirname, 'modules', '**', 'resolvers.js'))
 
-const pubsub = new PubSub();
-
-const messages = [];
-
-const resolvers = {
-  Query: {
-    messages: () => messages,
-  },
-  Mutation: {
-    sendMessage: (_, { user, content, sentAt }) => {
-      const id = messages.length;
-      messages.push({
-        id,
-        user,
-        content,
-        sentAt,
-      });
-
-      pubsub.publish(SEND_MESSAGE, {
-        messages,
-      });
-
-      return id;
-    },
-  },
-  Subscription: {
-    messages: {
-      subscribe: (_, args) => {
-        setTimeout(
-          () =>
-            pubsub.publish(SEND_MESSAGE, {
-              messages,
-            }),
-          0
-        );
-        return pubsub.asyncIterator(SEND_MESSAGE);
-      },
-    },
-  },
-};
-
-module.exports = resolvers;
+export default mergeResolvers(resolversArray)

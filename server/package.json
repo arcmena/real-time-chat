@@ -7,7 +7,10 @@
     "start": "nodemon --exec babel-node src/index.js -e js,graphql"
   },
   "dependencies": {
+    "@graphql-tools/load-files": "^6.5.3",
+    "@graphql-tools/merge": "^8.2.1",
     "@graphql-tools/schema": "^8.3.1",
+    "@prisma/client": "3.7.0",
     "apollo-server": "^3.6.1",
     "graphql": "^16.2.0",
     "graphql-subscriptions": "^2.0.0",
@@ -18,6 +21,7 @@
     "@babel/core": "^7.16.7",
     "@babel/node": "^7.16.7",
     "@babel/preset-env": "^7.16.7",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "prisma": "^3.7.0"
   }
 }
