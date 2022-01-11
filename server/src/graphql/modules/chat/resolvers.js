@@ -1,31 +1,31 @@
-import { PubSub } from "graphql-subscriptions";
+import { PubSub } from 'graphql-subscriptions'
 
-import { SEND_MESSAGE } from "../../channels";
+import { SEND_MESSAGE } from '../../channels'
 
-const pubsub = new PubSub();
+const pubsub = new PubSub()
 
-const messages = [];
+const messages = []
 
 const resolvers = {
   Query: {
-    messages: () => messages,
+    messages: () => messages
   },
   Mutation: {
     sendMessage: (_, { user, content, sentAt }) => {
-      const id = messages.length;
+      const id = messages.length
       messages.push({
         id,
         user,
         content,
-        sentAt,
-      });
+        sentAt
+      })
 
       pubsub.publish(SEND_MESSAGE, {
-        messages,
-      });
+        messages
+      })
 
-      return id;
-    },
+      return id
+    }
   },
   Subscription: {
     messages: {
@@ -33,14 +33,14 @@ const resolvers = {
         setTimeout(
           () =>
             pubsub.publish(SEND_MESSAGE, {
-              messages,
+              messages
             }),
           0
-        );
-        return pubsub.asyncIterator(SEND_MESSAGE);
-      },
-    },
-  },
-};
+        )
+        return pubsub.asyncIterator(SEND_MESSAGE)
+      }
+    }
+  }
+}
 
 export default resolvers

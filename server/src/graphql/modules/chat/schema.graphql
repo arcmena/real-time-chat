@@ -1,5 +1,5 @@
 type Message {
-  id: ID! 
+  id: ID!
   user: String!
   content: String!
   sentAt: String!
