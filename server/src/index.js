@@ -7,6 +7,7 @@ import { ApolloServer } from 'apollo-server-express'
 
 import resolvers from './graphql/resolvers'
 import typeDefs from './graphql/typeDefs'
+import context from './graphql/context'
 
 //
 ;(async () => {
@@ -25,7 +26,9 @@ import typeDefs from './graphql/typeDefs'
   )
 
   const server = new ApolloServer({
-    schema,
+    typeDefs,
+    resolvers,
+    context,
     plugins: [
       {
         async serverWillStart() {
