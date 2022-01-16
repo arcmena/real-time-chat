@@ -2,7 +2,18 @@ type Message {
   id: ID!
   user: String!
   content: String!
-  sentAt: String!
+  createdAt: DateTime!
+}
+
+type Chat {
+  id: ID!
+  users: [User!]
+  messages: [Message!]
+}
+
+type CreateChatResponse {
+  chat: Chat
+  errors: [Error!]
 }
 
 type Query {
@@ -10,9 +21,14 @@ type Query {
 }
 
 type Mutation {
-  sendMessage(user: String!, content: String!, sentAt: String!): ID!
+  createChat(data: CreateChatInput): CreateChatResponse
+  createMessage(user: String!, content: String!, sentAt: String!): ID!
 }
 
 type Subscription {
-  messages: [Message!]
+  newMessages: [Message!]
+}
+
+input CreateChatInput {
+  otherUsername: String!
 }

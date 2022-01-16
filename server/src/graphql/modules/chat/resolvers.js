@@ -1,36 +1,69 @@
 import { withFilter } from 'graphql-subscriptions'
 
+import authRequired from '../../../permissions/authRequired'
+
 import { SEND_MESSAGE } from '../../channels'
 
 const messages = []
 
 const resolvers = {
   Query: {
-    messages: () => messages
+    messages: (_parent, _args, context) => {
+      const { prisma } = context
+
+      return prisma
+    }
   },
   Mutation: {
-    sendMessage: (_, { user, content, sentAt }, context) => {
+    createChat: authRequired.createResolver(async (_parent, args, context) => {
+      const { otherUsername } = args.data
+      const { user, prisma } = context
+
+      const otherUser = await prisma.user.findUnique({
+        where: { username: otherUsername }
+      })
+
+      if (!otherUser) {
+        return {
+          errors: [{ path: 'otherUsername', message: 'Other user not found' }]
+        }
+      }
+
+      // TODO: check if the user already has a chat with this user
+      // if it does have, don't allow to create a new one
+
+      const chat = await prisma.chat.create({
+        data: {
+          users: {
+            connect: [{ id: user.id }, { id: otherUser.id }]
+          }
+        },
+        include: {
+          users: true,
+          messages: true
+        }
+      })
+
+      return {
+        chat
+      }
+    }),
+    createMessage: (_, { user, content, sentAt }, context) => {
       const { pubsub, user: userOnMutation } = context
 
       console.log({ userOnMutation })
 
       const id = messages.length
-      messages.push({
-        id,
-        user,
-        content,
-        sentAt
-      })
 
       pubsub.publish(SEND_MESSAGE, {
-        messages
+        newMessages: messages
       })
 
       return id
     }
   },
   Subscription: {
-    messages: {
+    newMessages: {
       subscribe: withFilter(
         (_payload, _args, context) => {
           const { pubsub } = context

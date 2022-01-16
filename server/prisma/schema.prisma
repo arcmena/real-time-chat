@@ -15,30 +15,31 @@ model User {
   username String @unique
   password String
 
-  chats    UserChat[]
+  chats    Chat[]
   messages Message[]
 }
 
 model Chat {
   id Int @id @default(autoincrement())
 
-  users    UserChat[]
+  users    User[]
   messages Message[]
 }
 
-model UserChat {
-  user   User @relation(fields: [userId], references: [id])
-  userId Int
+// model UserChat {
+//   user   User @relation(fields: [userId], references: [id])
+//   userId Int
 
-  chat   Chat @relation(fields: [chatId], references: [id])
-  chatId Int
+//   chat   Chat @relation(fields: [chatId], references: [id])
+//   chatId Int
 
-  @@id([userId, chatId])
-}
+//   @@id([userId, chatId])
+// }
 
 model Message {
   id      Int    @id @default(autoincrement())
   content String @db.VarChar(255)
+  createdAt DateTime @default(now())
 
   user   User @relation(fields: [userId], references: [id])
   userId Int
