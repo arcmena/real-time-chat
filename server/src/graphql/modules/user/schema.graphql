@@ -1,11 +1,26 @@
 type User {
   id: ID!
   username: String!
-  password: String
+}
+
+type LoginResponse {
+  token: String
+  errors: [Error!]
+}
+
+type CreateUserResponse {
+  user: User!
+  errors: [Error!]
 }
 
 type Mutation {
+  login(data: LoginInput): LoginResponse!
   createUser(data: CreateUserInput): User!
+}
+
+input LoginInput {
+  username: String!
+  password: String!
 }
 
 input CreateUserInput {

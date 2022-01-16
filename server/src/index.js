@@ -4,10 +4,34 @@ import { SubscriptionServer } from 'subscriptions-transport-ws'
 import { makeExecutableSchema } from '@graphql-tools/schema'
 import express from 'express'
 import { ApolloServer } from 'apollo-server-express'
+import cors from 'cors'
 
 import resolvers from './graphql/resolvers'
 import typeDefs from './graphql/typeDefs'
 import context from './graphql/context'
+
+import getUserFromToken from './auth/getUserFromToken'
+
+import { GRAPHQL_ENDPOINT } from './constants/serverConstants'
+
+function auth(req, _res, next) {
+  const { authorization } = req.headers
+
+  if (authorization) {
+    const [_bearer, token] = authorization.split(' ')
+
+    if (token) {
+      try {
+        const user = getUserFromToken(token)
+        req.user = user
+      } catch (error) {
+        // TODO: add refresh token logic
+      }
+    }
+  }
+
+  next()
+}
 
 //
 ;(async () => {
@@ -21,14 +45,46 @@ import context from './graphql/context'
   })
 
   const subscriptionServer = SubscriptionServer.create(
-    { schema, execute, subscribe },
-    { server: httpServer, path: '/graphql' }
+    {
+      schema,
+      execute,
+      subscribe,
+      onConnect: connectionParams => {
+        const { Authorization } = connectionParams
+
+        if (Authorization) {
+          const [_bearer, token] = Authorization.split(' ')
+
+          if (token) {
+            try {
+              const user = getUserFromToken(token)
+              return { user }
+            } catch (error) {
+              // TODO: add refresh token logic
+            }
+          }
+        }
+
+        throw new Error('Missing auth token!')
+      },
+      onOperation: (_message, params) => ({
+        ...params,
+        context: {
+          ...params.context,
+          ...context
+        }
+      })
+    },
+    { server: httpServer, path: GRAPHQL_ENDPOINT }
   )
 
   const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context,
+    context: ({ req }) => ({
+      ...context,
+      user: req.user
+    }),
     plugins: [
       {
         async serverWillStart() {
@@ -41,6 +97,9 @@ import context from './graphql/context'
       }
     ]
   })
+
+  app.use(cors())
+  app.use(auth)
 
   await server.start()
 

@@ -1,8 +1,6 @@
-import { PubSub } from 'graphql-subscriptions'
+import { withFilter } from 'graphql-subscriptions'
 
 import { SEND_MESSAGE } from '../../channels'
-
-const pubsub = new PubSub()
 
 const messages = []
 
@@ -11,7 +9,11 @@ const resolvers = {
     messages: () => messages
   },
   Mutation: {
-    sendMessage: (_, { user, content, sentAt }) => {
+    sendMessage: (_, { user, content, sentAt }, context) => {
+      const { pubsub, user: userOnMutation } = context
+
+      console.log({ userOnMutation })
+
       const id = messages.length
       messages.push({
         id,
@@ -29,16 +31,18 @@ const resolvers = {
   },
   Subscription: {
     messages: {
-      subscribe: (_, args) => {
-        setTimeout(
-          () =>
-            pubsub.publish(SEND_MESSAGE, {
-              messages
-            }),
-          0
-        )
-        return pubsub.asyncIterator(SEND_MESSAGE)
-      }
+      subscribe: withFilter(
+        (_payload, _args, context) => {
+          const { pubsub } = context
+
+          return pubsub.asyncIterator(SEND_MESSAGE)
+        },
+        (payload, args, context) => {
+          const { user } = context
+
+          console.log({ userOnSubscription: user })
+        }
+      )
     }
   }
 }
