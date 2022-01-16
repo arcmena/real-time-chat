@@ -29,7 +29,7 @@ const resolvers = {
         }
       }
 
-      // TODO: check if the user already has a chat with this user
+      // TODO: check if the user already has a chat with the otherUser
       // if it does have, don't allow to create a new one
 
       const chat = await prisma.chat.create({
