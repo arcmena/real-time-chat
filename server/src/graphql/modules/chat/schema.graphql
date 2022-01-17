@@ -21,7 +21,7 @@ type Mutation {
 }
 
 type Subscription {
-  newMessages: Message!
+  newMessages(data: NewMessageInput): Message!
 }
 
 type CreateChatResponse {
@@ -36,4 +36,8 @@ input CreateChatInput {
 input CreateMessageInput {
   chatId: Int!
   content: String!
+}
+
+input NewMessageInput {
+  chatId: Int!
 }

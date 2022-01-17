@@ -74,17 +74,21 @@ const resolvers = {
   },
   Subscription: {
     newMessages: {
-      subscribe: withFilter(
-        (_payload, _args, context) => {
-          const { pubsub } = context
+      subscribe: authRequired.createResolver(
+        // TODO: check if user is actually in the chat
+        withFilter(
+          (_payload, _args, context) => {
+            const { pubsub } = context
 
-          return pubsub.asyncIterator(SEND_MESSAGE)
-        },
-        (payload, args, context) => {
-          const { user } = context
+            return pubsub.asyncIterator(SEND_MESSAGE)
+          },
+          (payload, args) => {
+            const incomingMessageId = payload.newMessages.chatId
+            const listeningChatId = args.data.chatId
 
-          return true
-        }
+            return listeningChatId === incomingMessageId
+          }
+        )
       )
     }
   }
