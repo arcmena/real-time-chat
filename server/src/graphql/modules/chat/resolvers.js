@@ -1,8 +1,8 @@
 import { withFilter } from 'graphql-subscriptions'
 
-import authRequired from '../../../permissions/authRequired'
+import authRequired from 'permissions/authRequired'
 
-import { SEND_MESSAGE } from '../../channels'
+import { SEND_MESSAGE } from 'graphql/channels'
 
 const resolvers = {
   Query: {

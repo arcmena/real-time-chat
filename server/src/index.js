@@ -6,35 +6,16 @@ import express from 'express'
 import { ApolloServer } from 'apollo-server-express'
 import cors from 'cors'
 
-import resolvers from './graphql/resolvers'
-import typeDefs from './graphql/typeDefs'
-import context from './graphql/context'
+import resolvers from 'graphql/resolvers'
+import typeDefs from 'graphql/typeDefs'
+import context from 'graphql/context'
 
-import getUserFromToken from './auth/getUserFromToken'
+import getUserFromToken from 'auth/getUserFromToken'
+import auth from 'auth/middleware'
 
-import { GRAPHQL_ENDPOINT } from './constants/serverConstants'
+import { GRAPHQL_ENDPOINT } from 'constants/serverConstants'
 
-function auth(req, _res, next) {
-  const { authorization } = req.headers
-
-  if (authorization) {
-    const [_bearer, token] = authorization.split(' ')
-
-    if (token) {
-      try {
-        const user = getUserFromToken(token)
-        req.user = user
-      } catch (error) {
-        // TODO: add refresh token logic
-      }
-    }
-  }
-
-  next()
-}
-
-//
-;(async () => {
+const server = async () => {
   const app = express()
 
   const httpServer = createServer(app)
@@ -115,4 +96,6 @@ function auth(req, _res, next) {
       `🚀 Subscription endpoint ready at ws://localhost:${PORT}${server.graphqlPath}`
     )
   })
-})()
+}
+
+server()

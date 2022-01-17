@@ -1,6 +1,6 @@
-import compareHashPassword from '../../../auth/compareHashPassword'
-import generateHashPassword from '../../../auth/generateHashPassword'
-import generateAuthToken from '../../../auth/generateAuthToken'
+import compareHashPassword from 'auth/compareHashPassword'
+import generateHashPassword from 'auth/generateHashPassword'
+import generateAuthToken from 'auth/generateAuthToken'
 
 const resolvers = {
   Mutation: {
