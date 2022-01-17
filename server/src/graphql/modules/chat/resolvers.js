@@ -4,8 +4,6 @@ import authRequired from '../../../permissions/authRequired'
 
 import { SEND_MESSAGE } from '../../channels'
 
-const messages = []
-
 const resolvers = {
   Query: {
     messages: (_parent, _args, context) => {
@@ -48,19 +46,31 @@ const resolvers = {
         chat
       }
     }),
-    createMessage: (_, { user, content, sentAt }, context) => {
-      const { pubsub, user: userOnMutation } = context
+    createMessage: authRequired.createResolver(async (_, args, context) => {
+      const { chatId, content } = args.data
+      const { pubsub, prisma, user } = context
 
-      console.log({ userOnMutation })
-
-      const id = messages.length
-
-      pubsub.publish(SEND_MESSAGE, {
-        newMessages: messages
+      const message = await prisma.message.create({
+        data: {
+          chatId,
+          content,
+          userId: user.id
+        },
+        include: {
+          user: {
+            select: {
+              username: true
+            }
+          }
+        }
       })
 
-      return id
-    }
+      pubsub.publish(SEND_MESSAGE, {
+        newMessages: message
+      })
+
+      return true
+    })
   },
   Subscription: {
     newMessages: {
@@ -73,7 +83,7 @@ const resolvers = {
         (payload, args, context) => {
           const { user } = context
 
-          console.log({ userOnSubscription: user })
+          return true
         }
       )
     }
