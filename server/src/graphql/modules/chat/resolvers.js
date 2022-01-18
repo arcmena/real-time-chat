@@ -4,10 +4,48 @@ import { requiresAuth } from 'permissions/authRequired'
 
 import { SEND_MESSAGE } from 'graphql/channels'
 
+import { containUser } from './utils'
+
 const resolvers = {
   Query: {
     messages: requiresAuth(async (_parent, args, context) => {
-      return 'ok'
+      const { chatId } = args.data
+      const { user, prisma } = context
+
+      const chat = await prisma.chat.findUnique({
+        where: {
+          id: chatId
+        },
+        include: {
+          users: {
+            select: {
+              id: true,
+              username: true
+            }
+          },
+          messages: {
+            include: {
+              user: true
+            }
+          }
+        }
+      })
+
+      if (!chat) {
+        return {
+          errors: [
+            { path: 'chatId', message: 'Not chat found with provided id' }
+          ]
+        }
+      }
+
+      if (!containUser(user.id, chat.users)) {
+        return {
+          errors: [{ path: 'chatId', message: 'Not allowed to view chat' }]
+        }
+      }
+
+      return chat
     })
   },
   Mutation: {

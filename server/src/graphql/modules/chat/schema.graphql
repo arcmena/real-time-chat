@@ -12,7 +12,7 @@ type Chat {
 }
 
 type Query {
-  messages: String!
+  messages(data: MessagesInput): MessagesResponse!
 }
 
 type Mutation {
@@ -24,9 +24,18 @@ type Subscription {
   newMessages(data: NewMessageInput): Message!
 }
 
+type MessagesResponse {
+  chat: Chat
+  errors: [Error!]
+}
+
 type CreateChatResponse {
   chat: Chat
   errors: [Error!]
+}
+
+input MessagesInput {
+  chatId: Int!
 }
 
 input CreateChatInput {
