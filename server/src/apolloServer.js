@@ -10,7 +10,10 @@ import context from 'graphql/context'
 
 import getUserFromToken from 'auth/getUserFromToken'
 
-import { GRAPHQL_ENDPOINT } from 'constants/serverConstants'
+import {
+  GRAPHQL_ENDPOINT,
+  SUBSCRIPTION_ENDPOINT
+} from 'constants/serverConstants'
 
 const schema = makeExecutableSchema({
   typeDefs,
@@ -51,7 +54,7 @@ const createApolloServer = app => {
         }
       })
     },
-    { server: httpServer, path: GRAPHQL_ENDPOINT }
+    { server: httpServer, path: SUBSCRIPTION_ENDPOINT }
   )
 
   const server = new ApolloServer({
@@ -76,20 +79,26 @@ const createApolloServer = app => {
 
   return {
     server,
+    subscriptionServer,
     httpServer
   }
 }
 
 const startApolloServer = async (app, port) => {
-  const { server, httpServer } = createApolloServer(app)
+  const { server, httpServer, subscriptionServer } = createApolloServer(app)
 
   await server.start()
 
-  server.applyMiddleware({ app })
+  server.applyMiddleware({ app, path: GRAPHQL_ENDPOINT })
 
   httpServer.listen({ port })
 
-  return server
+  const subscriptionPath = subscriptionServer.wsServer.options.path
+
+  return {
+    ...server,
+    subscriptionPath
+  }
 }
 
 export { startApolloServer }

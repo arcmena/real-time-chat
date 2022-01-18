@@ -15,13 +15,13 @@ const PORT = 4000
 
 const main = async () => {
   try {
-    const server = await startApolloServer(app)
+    const server = await startApolloServer(app, PORT)
 
     console.log(
       `🚀 Query endpoint ready at http://localhost:${PORT}${server.graphqlPath}`
     )
     console.log(
-      `🌌 Subscription endpoint ready at ws://localhost:${PORT}${server.graphqlPath}`
+      `🌌 Subscription endpoint ready at ws://localhost:${PORT}${server.subscriptionPath}`
     )
   } catch (error) {
     console.error(error)
