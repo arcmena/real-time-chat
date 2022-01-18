@@ -12,7 +12,7 @@ type Chat {
 }
 
 type Query {
-  messages: [Message!]
+  messages: String!
 }
 
 type Mutation {

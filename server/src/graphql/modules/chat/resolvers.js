@@ -1,19 +1,17 @@
 import { withFilter } from 'graphql-subscriptions'
 
-import authRequired from 'permissions/authRequired'
+import { requiresAuth } from 'permissions/authRequired'
 
 import { SEND_MESSAGE } from 'graphql/channels'
 
 const resolvers = {
   Query: {
-    messages: (_parent, _args, context) => {
-      const { prisma } = context
-
-      return prisma
-    }
+    messages: requiresAuth(async (_parent, args, context) => {
+      return 'ok'
+    })
   },
   Mutation: {
-    createChat: authRequired.createResolver(async (_parent, args, context) => {
+    createChat: requiresAuth(async (_parent, args, context) => {
       const { otherUsername } = args.data
       const { user, prisma } = context
 
@@ -46,7 +44,7 @@ const resolvers = {
         chat
       }
     }),
-    createMessage: authRequired.createResolver(async (_, args, context) => {
+    createMessage: requiresAuth(async (_, args, context) => {
       const { chatId, content } = args.data
       const { pubsub, prisma, user } = context
 
@@ -74,7 +72,7 @@ const resolvers = {
   },
   Subscription: {
     newMessages: {
-      subscribe: authRequired.createResolver(
+      subscribe: requiresAuth(
         // TODO: check if user is actually in the chat
         withFilter(
           (_payload, _args, context) => {
