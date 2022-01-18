@@ -1,3 +1,5 @@
+import getUserFromToken from './getUserFromToken'
+
 const auth = (req, _res, next) => {
   const { authorization } = req.headers
 
