@@ -2,7 +2,33 @@ import compareHashPassword from 'auth/compareHashPassword'
 import generateHashPassword from 'auth/generateHashPassword'
 import generateAuthToken from 'auth/generateAuthToken'
 
+import authRequired from 'permissions/authRequired'
+
 const resolvers = {
+  Query: {
+    me: authRequired(async (_parent, _args, context) => {
+      const { prisma, user } = context
+
+      const userInfo = await prisma.user.findUnique({
+        where: { id: user.id },
+        include: {
+          chats: {
+            include: { users: true, messages: { include: { user: true } } }
+          }
+        }
+      })
+
+      const onlyLastMessage = userInfo.chats.map(chat => ({
+        ...chat,
+        lastMessage: chat.messages[0]
+      }))
+
+      return {
+        ...userInfo,
+        chats: onlyLastMessage
+      }
+    })
+  },
   Mutation: {
     login: async (_parent, args, context) => {
       const { username, password } = args.data

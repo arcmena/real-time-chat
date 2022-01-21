@@ -1,6 +1,18 @@
 type User {
-  id: ID!
+  id: Int!
   username: String!
+}
+
+type ChatsLastMessage {
+  id: ID
+  users: [User]
+  lastMessage: Message
+}
+
+type MeResponse {
+  id: Int!
+  username: String!
+  chats: [ChatsLastMessage]
 }
 
 type LoginResponse {
@@ -11,6 +23,10 @@ type LoginResponse {
 type CreateUserResponse {
   user: User!
   errors: [Error!]
+}
+
+type Query {
+  me: MeResponse
 }
 
 type Mutation {
