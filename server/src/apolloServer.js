@@ -43,8 +43,6 @@ const createApolloServer = app => {
             }
           }
         }
-
-        throw new Error('Missing auth token!')
       },
       onOperation: (_message, params) => ({
         ...params,

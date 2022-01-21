@@ -2,6 +2,7 @@
 **/node_modules
 
 # environment variables
+app/.env.local
 **/.env
 
 # build outputs

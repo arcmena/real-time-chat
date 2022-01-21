@@ -1,12 +1,22 @@
-import cn from "classnames";
-import s from "./Input.module.css";
+import cn from 'classnames'
+import { forwardRef } from 'react'
+import s from './Input.module.css'
 
-const Input = ({ className, type = 'text', ...rest }) => {
-  return (
+const Input = forwardRef(
+  ({ className, type = 'text', name, onChange, onBlur, ...rest }, ref) => (
     <div className={cn(s.root, className)}>
-      <input type={type} className={s.field} autoComplete="off" {...rest} />
+      <input
+        type={type}
+        className={s.field}
+        autoComplete="off"
+        onChange={onChange}
+        onBlur={onBlur}
+        ref={ref}
+        name={name}
+        {...rest}
+      />
     </div>
-  );
-};
+  )
+)
 
-export default Input;
+export default Input

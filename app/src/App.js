@@ -1,9 +1,9 @@
 //Chat Client to provide the connection with the backend
-import ChatClient from "./lib/ChatClient";
-import { UIProvider } from "./contexts/UIContext";
+import ChatClient from './lib/ChatClient'
+import { UIProvider } from './contexts/UIContext'
 
-import { ChatView } from "./components/chat";
-import { Layout } from "./components/common";
+import { ChatView } from './components/chat'
+import { Layout } from './components/common'
 
 const App = () => {
   return (
@@ -14,7 +14,7 @@ const App = () => {
         </Layout>
       </UIProvider>
     </ChatClient>
-  );
-};
+  )
+}
 
-export default App;
+export default App

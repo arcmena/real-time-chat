@@ -1,14 +1,13 @@
 {
-    "name": "arctichat",
-    "version": "1.0.0",
-    "license": "MIT",
-    "scripts": {
-      "start:app": "cd ./app && yarn start",
-      "start:server": "cd ./server && yarn start"
-    },
-    "dependencies": {
-    },
-    "devDependencies": {
-    }
-  }
-  
+  "name": "arctichat",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "start:app": "cd ./app && yarn start",
+    "start:server": "cd ./server && yarn start"
+  },
+  "dependencies": {
+    "react-hook-form": "^7.24.2"
+  },
+  "devDependencies": {}
+}
