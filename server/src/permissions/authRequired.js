@@ -1,6 +1,6 @@
 import { AuthenticationError } from 'apollo-server-express'
 
-export const requiresAuth = next => (payload, args, context, info) => {
+const authRequired = next => (payload, args, context, info) => {
   const { user } = context
 
   if (!user || !user.id) {
@@ -9,3 +9,5 @@ export const requiresAuth = next => (payload, args, context, info) => {
 
   return next(payload, args, context, info)
 }
+
+export default authRequired
