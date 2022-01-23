@@ -1,20 +1,13 @@
-//Chat Client to provide the connection with the backend
-import ChatClient from './lib/ChatClient'
-import { UIProvider } from './contexts/UIContext'
+import Routes from 'routes'
 
-import { ChatView } from './components/chat'
-import { Layout } from './components/common'
+import Provider from 'graphql/Provider'
 
-const App = () => {
+const NewApp = () => {
   return (
-    <ChatClient>
-      <UIProvider>
-        <Layout>
-          <ChatView />
-        </Layout>
-      </UIProvider>
-    </ChatClient>
+    <Provider>
+      <Routes />
+    </Provider>
   )
 }
 
-export default App
+export default NewApp

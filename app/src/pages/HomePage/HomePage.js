@@ -1,4 +1,4 @@
-import { useUser } from '../../contexts/UserContext'
+import { useUser } from 'contexts/UserContext'
 
 const HomePage = () => {
   const { username } = useUser()

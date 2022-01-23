@@ -1,4 +1,4 @@
-import { useUser } from '../../../contexts/UserContext'
+import { useUser } from 'contexts/UserContext'
 
 import s from './AppLayout.module.css'
 

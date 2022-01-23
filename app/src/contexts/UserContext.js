@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client'
 import { createContext, useContext } from 'react'
 
-import { ME_QUERY } from '../graphql/query/user'
+import { ME_QUERY } from 'graphql/query/user'
 
 const UserContext = createContext({})
 

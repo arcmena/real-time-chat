@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "components/*": ["components/*"],
+      "contexts/*": ["contexts/*"],
+      "graphql/*": ["graphql/*"],
+      "pages/*": ["pages/*"],
+      "hooks/*": ["hooks/*"],
+      "lib/*": ["lib/*"],
+      "routes/*": ["routes/*"]
+    }
+  },
+  "exclude": ["node_modules", ".vscode"]
+}

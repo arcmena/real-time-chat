@@ -3,9 +3,9 @@ import cn from 'classnames'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
-import { Button, Input } from '../../components/ui'
-import { LOGIN_MUTATION } from '../../graphql/mutations/user'
-import authStorage from '../../lib/authStorage'
+import { Button, Input } from 'components/ui'
+import { LOGIN_MUTATION } from 'graphql/mutations/user'
+import authStorage from 'lib/authStorage'
 
 import s from './LoginPage.module.css'
 

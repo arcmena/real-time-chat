@@ -5,12 +5,12 @@ import {
   Navigate
 } from 'react-router-dom'
 
-import HomePage from '../pages/HomePage/HomePage'
-import LoginPage from '../pages/LoginPage/LoginPage'
+import HomePage from 'pages/HomePage/HomePage'
+import LoginPage from 'pages/LoginPage/LoginPage'
 
-import authStorage from '../lib/authStorage'
-import { UserProvider } from '../contexts/UserContext'
-import Layout from '../components/common/AppLayout'
+import authStorage from 'lib/authStorage'
+import { UserProvider } from 'contexts/UserContext'
+import Layout from 'components/common/AppLayout'
 
 const Wrapper = ({ children }) => (
   <UserProvider>
