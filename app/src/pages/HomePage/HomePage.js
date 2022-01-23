@@ -1,5 +1,9 @@
+import { useUser } from '../../contexts/UserContext'
+
 const HomePage = () => {
-  return <div>Hello home page!</div>
+  const { username } = useUser()
+
+  return <div>Hello to home page {username}!</div>
 }
 
 export default HomePage

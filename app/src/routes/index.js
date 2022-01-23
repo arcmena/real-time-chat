@@ -9,11 +9,23 @@ import HomePage from '../pages/HomePage/HomePage'
 import LoginPage from '../pages/LoginPage/LoginPage'
 
 import authStorage from '../lib/authStorage'
+import { UserProvider } from '../contexts/UserContext'
+import Layout from '../components/common/AppLayout'
 
-function RequireAuth({ children, redirectTo }) {
-  let isAuthenticated = authStorage.isAuthenticated()
+const Wrapper = ({ children }) => (
+  <UserProvider>
+    <Layout>{children}</Layout>
+  </UserProvider>
+)
 
-  return isAuthenticated ? children : <Navigate replace to={redirectTo} />
+const RequireAuth = ({ children }) => {
+  const isAuthenticated = authStorage.isAuthenticated()
+
+  return isAuthenticated ? (
+    <Wrapper>{children}</Wrapper>
+  ) : (
+    <Navigate replace to="/login" />
+  )
 }
 
 const AppRoutes = () => {
@@ -22,10 +34,9 @@ const AppRoutes = () => {
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route
-          index
           path="/"
           element={
-            <RequireAuth redirectTo="/login">
+            <RequireAuth>
               <HomePage />
             </RequireAuth>
           }
