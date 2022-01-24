@@ -13,7 +13,14 @@ const resolvers = {
         where: { id: user.id },
         include: {
           chats: {
-            include: { users: true, messages: { include: { user: true } } }
+            include: {
+              users: true,
+              messages: {
+                take: 1,
+                include: { user: true },
+                orderBy: { id: 'desc' }
+              }
+            }
           }
         }
       })
