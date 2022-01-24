@@ -17,7 +17,7 @@ const wsLink = new WebSocketLink({
     reconnect: true,
     lazy: true,
     connectionParams: {
-      Authorization: authStorage.getToken()
+      Authorization: `Bearer ${authStorage.getToken()}`
     }
   }
 })

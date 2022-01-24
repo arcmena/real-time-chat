@@ -34,7 +34,7 @@ const AppRoutes = () => {
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route
-          path="/"
+          path="/*"
           element={
             <RequireAuth>
               <HomePage />
