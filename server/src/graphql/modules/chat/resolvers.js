@@ -45,7 +45,7 @@ const resolvers = {
         }
       }
 
-      return chat
+      return { chat }
     })
   },
   Mutation: {
