@@ -2,7 +2,7 @@ import { withFilter } from 'graphql-subscriptions'
 
 import authRequired from 'permissions/authRequired'
 
-import { SEND_MESSAGE } from 'graphql/channels'
+import { CREATE_CHAT, SEND_MESSAGE } from 'graphql/channels'
 
 import { containUser } from './utils'
 
@@ -51,7 +51,7 @@ const resolvers = {
   Mutation: {
     createChat: authRequired(async (_parent, args, context) => {
       const { otherUsername } = args.data
-      const { user, prisma } = context
+      const { user, prisma, pubsub } = context
 
       const otherUser = await prisma.user.findUnique({
         where: { username: otherUsername }
@@ -78,8 +78,12 @@ const resolvers = {
         }
       })
 
+      pubsub.publish(CREATE_CHAT, {
+        newChat: chat
+      })
+
       return {
-        chat
+        ok: true
       }
     }),
     createMessage: authRequired(async (_, args, context) => {
@@ -102,14 +106,14 @@ const resolvers = {
       })
 
       pubsub.publish(SEND_MESSAGE, {
-        newMessages: message
+        newMessage: message
       })
 
       return true
     })
   },
   Subscription: {
-    newMessages: {
+    newMessage: {
       subscribe: authRequired(
         // TODO: check if user is actually in the chat
         withFilter(
@@ -119,10 +123,27 @@ const resolvers = {
             return pubsub.asyncIterator(SEND_MESSAGE)
           },
           (payload, args) => {
-            const incomingMessageId = payload.newMessages.chatId
+            const incomingMessageChatId = payload.newMessage.chatId
             const listeningChatId = args.data.chatId
 
-            return listeningChatId === incomingMessageId
+            return listeningChatId === incomingMessageChatId
+          }
+        )
+      )
+    },
+    newChat: {
+      subscribe: authRequired(
+        withFilter(
+          (_payload, _args, context) => {
+            const { pubsub } = context
+
+            return pubsub.asyncIterator(CREATE_CHAT)
+          },
+          (payload, args, context) => {
+            const { user } = context
+            const incomingChatUsers = payload.newChat.users
+
+            return !!incomingChatUsers.find(({ id }) => id === user.id)
           }
         )
       )

@@ -3,8 +3,8 @@ type User {
   username: String!
 }
 
-type ChatsLastMessage {
-  id: ID
+type ChatLastMessage {
+  id: Int
   users: [User]
   lastMessage: Message
 }
@@ -12,7 +12,7 @@ type ChatsLastMessage {
 type MeResponse {
   id: Int!
   username: String!
-  chats: [ChatsLastMessage]
+  chats: [ChatLastMessage]
 }
 
 type LoginResponse {

@@ -1,12 +1,12 @@
 type Message {
-  id: ID!
+  id: Int!
   user: User!
   content: String!
   createdAt: DateTime!
 }
 
 type Chat {
-  id: ID!
+  id: Int!
   users: [User!]
   messages: [Message!]
 }
@@ -21,7 +21,8 @@ type Mutation {
 }
 
 type Subscription {
-  newMessages(data: NewMessageInput): Message!
+  newMessage(data: NewMessageInput): Message!
+  newChat: Chat!
 }
 
 type MessagesResponse {
@@ -30,7 +31,7 @@ type MessagesResponse {
 }
 
 type CreateChatResponse {
-  chat: Chat
+  ok: Boolean
   errors: [Error!]
 }
 
