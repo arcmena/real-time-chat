@@ -11,14 +11,6 @@ export const ME_QUERY = gql`
           id
           username
         }
-        lastMessage {
-          id
-          content
-          user {
-            id
-            username
-          }
-        }
       }
     }
   }

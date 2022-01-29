@@ -13,12 +13,30 @@ const Side = ({ children }) => {
 const Chat = () => {
   const { chatId } = useParams()
 
-  const { data, loading } = useQuery(MESSAGES_QUERY, {
-    variables: { data: { chatId: Number(chatId) } }
+  const intChatId = Number(chatId)
+
+  const { data, loading, subscribeToMore } = useQuery(MESSAGES_QUERY, {
+    variables: { data: { chatId: intChatId } }
   })
 
-  console.log(data?.messages?.chat)
-  console.log(loading)
+  subscribeToMore({
+    document: NEW_MESSAGES_SUBSCRIPTION,
+    variables: { data: { chatId: intChatId } },
+    updateQuery: (prev, { subscriptionData }) => {
+      if (!subscriptionData.data) return prev
+
+      const newMessage = subscriptionData.data.newMessage
+
+      return Object.assign({}, prev, {
+        messages: {
+          chat: {
+            ...prev.messages.chat,
+            messages: [...prev.messages.chat.messages, newMessage]
+          }
+        }
+      })
+    }
+  })
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -55,11 +73,6 @@ const HomePage = () => {
               return (
                 <li key={id} onClick={() => navigate(`/chat/${id}`)}>
                   <h2>{otherUser.username}</h2>
-                  <p>
-                    {lastMessage
-                      ? `${lastMessage.user.username}: ${lastMessage.content}`
-                      : 'No messages'}
-                  </p>
                 </li>
               )
             })}
