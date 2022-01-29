@@ -13,34 +13,39 @@ const Side = ({ children }) => {
 }
 
 const Chat = () => {
-  const { chatId } = useParams()
+  const { chatId: paramChatId } = useParams()
 
-  const intChatId = Number(chatId)
+  const chatId = Number(paramChatId)
 
   const { data, loading, subscribeToMore } = useQuery(MESSAGES_QUERY, {
-    variables: { data: { chatId: intChatId } },
-    fetchPolicy: 'network-only'
+    variables: { data: { chatId: chatId } }
   })
 
   const [sendMessage] = useMutation(CREATE_MESSAGE_MUTATION)
 
   subscribeToMore({
     document: NEW_MESSAGE_SUBSCRIPTION,
-    variables: { data: { chatId: intChatId } },
+    variables: { data: { chatId: chatId } },
     updateQuery: (prev, { subscriptionData }) => {
       if (!subscriptionData.data) return prev
 
       const newMessage = subscriptionData.data.newMessage
 
-      return Object.assign({}, prev, {
-        messages: {
-          ...prev.messages,
-          chat: {
-            ...prev.messages.chat,
-            messages: [...prev.messages.chat.messages, newMessage]
+      const hasMessageAlready = prev.messages.chat.messages.find(
+        ({ id }) => id === newMessage.id
+      )
+
+      if (!hasMessageAlready) {
+        return Object.assign({}, prev, {
+          messages: {
+            ...prev.messages,
+            chat: {
+              ...prev.messages.chat,
+              messages: [...prev.messages.chat.messages, newMessage]
+            }
           }
-        }
-      })
+        })
+      }
     }
   })
 
@@ -51,9 +56,11 @@ const Chat = () => {
 
     if (!inputRef.current.value) return
 
+    const content = inputRef.current.value
+
     sendMessage({
       variables: {
-        data: { chatId: intChatId, content: inputRef.current.value }
+        data: { chatId, content }
       }
     })
 
