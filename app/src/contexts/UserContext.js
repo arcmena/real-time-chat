@@ -1,8 +1,10 @@
 import { useQuery } from '@apollo/client'
-import { createContext, useContext } from 'react'
+import { createContext, useCallback, useContext } from 'react'
 
 import { ME_QUERY } from 'graphql/query/user'
 import { NEW_CHAT_SUBSCRIPTION } from 'graphql/subscription/chat'
+
+import authStorage from 'lib/authStorage'
 
 const UserContext = createContext({})
 
@@ -14,28 +16,37 @@ const UserProvider = ({ children }) => {
     subscribeToMore
   } = useQuery(ME_QUERY)
 
-  const subscribeToNewChats = () =>
-    subscribeToMore({
-      document: NEW_CHAT_SUBSCRIPTION,
-      updateQuery: (prev, { subscriptionData }) => {
-        if (!subscriptionData.data) return prev
+  const subscribeToNewChats = useCallback(
+    () =>
+      subscribeToMore({
+        document: NEW_CHAT_SUBSCRIPTION,
+        updateQuery: (prev, { subscriptionData }) => {
+          if (!subscriptionData.data) return prev
 
-        const newChat = subscriptionData.data.newChat
+          const newChat = subscriptionData.data.newChat
 
-        return Object.assign({}, prev, {
-          me: {
-            ...prev.me,
-            chats: [...prev.me.chats, newChat]
-          }
-        })
-      }
-    })
+          return Object.assign({}, prev, {
+            me: {
+              ...prev.me,
+              chats: [...prev.me.chats, newChat]
+            }
+          })
+        }
+      }),
+    [subscribeToMore]
+  )
+
+  const logOut = useCallback(navigate => {
+    authStorage.destroyToken()
+    navigate('/login')
+  }, [])
 
   const providerValue = {
     ...data?.me,
     subscribeToNewChats,
     loadingUser,
-    errorUser
+    errorUser,
+    logOut
   }
 
   return (

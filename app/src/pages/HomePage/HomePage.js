@@ -3,13 +3,19 @@ import { useUser } from 'contexts/UserContext'
 import { CREATE_MESSAGE_MUTATION } from 'graphql/mutations/chat'
 import { MESSAGES_QUERY } from 'graphql/query/chat'
 import { NEW_MESSAGE_SUBSCRIPTION } from 'graphql/subscription/chat'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { Route, Routes, useNavigate, useParams } from 'react-router-dom'
 
 const getOtherUser = (id, users) => users.find(user => user.id !== id)
 
 const Side = ({ children }) => {
-  return children
+  return (
+    <div
+      style={{ display: 'flex', flexDirection: 'column', minWidth: '300px' }}
+    >
+      {children}
+    </div>
+  )
 }
 
 const Chat = () => {
@@ -90,23 +96,38 @@ const Chat = () => {
 }
 
 const HomePage = () => {
-  const { id: currentUserId, username, chats } = useUser()
+  const { id: currentUserId, username, chats, logOut } = useUser()
+  const [activeChat, setActiveChat] = useState()
 
   const navigate = useNavigate()
 
   return (
     <div>
-      <h1>Hello to home page {username}!</h1>
+      <h1>{username}</h1>
+      <button onClick={() => logOut(navigate)}>log out</button>
 
       <div style={{ display: 'flex' }}>
         <Side>
-          <ul style={{ cursor: 'pointer' }}>
+          <h2>Your Chats</h2>
+          <ul
+            style={{ cursor: 'pointer', listStyle: 'none', marginTop: '15px' }}
+          >
             {chats.map(({ id, users }) => {
               const otherUser = getOtherUser(currentUserId, users)
 
               return (
-                <li key={id} onClick={() => navigate(`/chat/${id}`)}>
-                  <h2>{otherUser.username}</h2>
+                <li
+                  style={{
+                    minHeight: '46px',
+                    backgroundColor: activeChat === id ? '#28374d' : '#202c3d'
+                  }}
+                  key={id}
+                  onClick={() => {
+                    setActiveChat(id)
+                    navigate(`/chat/${id}`)
+                  }}
+                >
+                  <h3>{otherUser.username}</h3>
                 </li>
               )
             })}
