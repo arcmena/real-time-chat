@@ -99,6 +99,7 @@ const resolvers = {
         include: {
           user: {
             select: {
+              id: true,
               username: true
             }
           }

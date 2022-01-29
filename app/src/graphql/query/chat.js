@@ -11,12 +11,12 @@ export const MESSAGES_QUERY = gql`
         }
         messages {
           id
+          content
+          createdAt
           user {
             id
             username
           }
-          content
-          createdAt
         }
       }
       errors {

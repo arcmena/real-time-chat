@@ -4,11 +4,12 @@ export const NEW_MESSAGE_SUBSCRIPTION = gql`
   subscription NewMessage($data: NewMessageInput) {
     newMessage(data: $data) {
       id
-      user {
-        username
-      }
       content
       createdAt
+      user {
+        id
+        username
+      }
     }
   }
 `
