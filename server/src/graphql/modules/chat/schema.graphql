@@ -3,6 +3,7 @@ type Message {
   user: User!
   content: String!
   createdAt: DateTime!
+  chatId: Int!
 }
 
 type Chat {

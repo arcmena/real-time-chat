@@ -15,24 +15,23 @@ const Chat = ({ setActiveChat }) => {
   }, [chatId, setActiveChat])
 
   const { data, loading, subscribeToMore } = useQuery(MESSAGES_QUERY, {
-    variables: { data: { chatId: chatId } }
+    variables: { data: { chatId: chatId } },
+    fetchPolicy: 'network-only'
   })
 
   const [sendMessage] = useMutation(CREATE_MESSAGE_MUTATION)
 
-  subscribeToMore({
-    document: NEW_MESSAGE_SUBSCRIPTION,
-    variables: { data: { chatId: chatId } },
-    updateQuery: (prev, { subscriptionData }) => {
-      if (!subscriptionData.data) return prev
+  useEffect(() => {
+    subscribeToMore({
+      document: NEW_MESSAGE_SUBSCRIPTION,
+      variables: { data: { chatId: chatId } },
+      updateQuery: (prev, { subscriptionData }) => {
+        if (!subscriptionData.data) return prev
+        if (subscriptionData.data.newMessage.chatId !== prev.messages.chat.id)
+          return prev
 
-      const newMessage = subscriptionData.data.newMessage
+        const newMessage = subscriptionData.data.newMessage
 
-      const hasMessageAlready = prev.messages.chat.messages.find(
-        ({ id }) => id === newMessage.id
-      )
-
-      if (!hasMessageAlready) {
         return Object.assign({}, prev, {
           messages: {
             ...prev.messages,
@@ -43,8 +42,8 @@ const Chat = ({ setActiveChat }) => {
           }
         })
       }
-    }
-  })
+    })
+  }, [chatId, subscribeToMore])
 
   const inputRef = useRef(null)
 
