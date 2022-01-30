@@ -1,13 +1,42 @@
+import { useEffect, useRef } from 'react'
+import { useMutation } from '@apollo/client'
+
+import { CREATE_CHAT_MUTATION } from 'graphql/mutations/chat'
+
 import { useUser } from 'contexts/UserContext'
 
 const getOtherUser = (id, users) => users.find(user => user.id !== id)
 
 const Chats = ({ navigate, activeChat }) => {
-  const { id: currentUserId, chats } = useUser()
+  const { id: currentUserId, chats, subscribeToNewChats } = useUser()
+
+  const [createChat] = useMutation(CREATE_CHAT_MUTATION)
+
+  useEffect(() => {
+    subscribeToNewChats()
+  }, [])
+
+  const inputRef = useRef(null)
+
+  const handleCreateChat = () => {
+    if (inputRef.current.value) {
+      createChat({
+        variables: {
+          data: {
+            otherUsername: inputRef.current.value
+          }
+        }
+      })
+    }
+  }
 
   return (
     <>
       <h2>Your Chats</h2>
+      <div>
+        <input type="text" name="createChat" id="createChat" ref={inputRef} />
+        <button onClick={handleCreateChat}>create chat</button>
+      </div>
       <ul style={{ cursor: 'pointer', listStyle: 'none', marginTop: '15px' }}>
         {chats.map(({ id, users }) => {
           const otherUser = getOtherUser(currentUserId, users)

@@ -7,9 +7,7 @@ import Chats from './components/Chats'
 
 const Side = ({ children }) => {
   return (
-    <div
-      style={{ display: 'flex', flexDirection: 'column', minWidth: '300px' }}
-    >
+    <div style={{ display: 'flex', flexDirection: 'column', width: '300px' }}>
       {children}
     </div>
   )
@@ -21,8 +19,6 @@ const HomePage = () => {
   const [activeChat, setActiveChat] = useState()
 
   const navigate = useNavigate()
-
-  console.log('home')
 
   return (
     <div>

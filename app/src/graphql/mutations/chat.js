@@ -5,3 +5,15 @@ export const CREATE_MESSAGE_MUTATION = gql`
     createMessage(data: $data)
   }
 `
+
+export const CREATE_CHAT_MUTATION = gql`
+  mutation CreateChat($data: CreateChatInput) {
+    createChat(data: $data) {
+      errors {
+        path
+        message
+      }
+      ok
+    }
+  }
+`
