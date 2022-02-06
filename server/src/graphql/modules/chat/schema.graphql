@@ -13,6 +13,7 @@ type Chat {
 }
 
 type Query {
+  chats: [Chat]
   messages(data: MessagesInput): MessagesResponse!
 }
 

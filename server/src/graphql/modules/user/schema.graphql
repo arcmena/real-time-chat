@@ -12,7 +12,6 @@ type ChatLastMessage {
 type MeResponse {
   id: Int!
   username: String!
-  chats: [ChatLastMessage]
 }
 
 type LoginResponse {

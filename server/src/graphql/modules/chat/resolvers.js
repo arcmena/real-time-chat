@@ -8,6 +8,29 @@ import { containUser } from './utils'
 
 const resolvers = {
   Query: {
+    chats: authRequired(async (_parent, _args, context) => {
+      const { prisma, user } = context
+
+      const userChats = await prisma.chat.findMany({
+        where: {
+          users: {
+            some: {
+              id: user.id
+            }
+          }
+        },
+        include: {
+          users: true,
+          messages: {
+            take: 1,
+            include: { user: true },
+            orderBy: { id: 'desc' }
+          }
+        }
+      })
+
+      return userChats
+    }),
     messages: authRequired(async (_parent, args, context) => {
       const { chatId } = args.data
       const { user, prisma } = context

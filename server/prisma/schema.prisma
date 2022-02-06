@@ -26,16 +26,6 @@ model Chat {
   messages Message[]
 }
 
-// model UserChat {
-//   user   User @relation(fields: [userId], references: [id])
-//   userId Int
-
-//   chat   Chat @relation(fields: [chatId], references: [id])
-//   chatId Int
-
-//   @@id([userId, chatId])
-// }
-
 model Message {
   id      Int    @id @default(autoincrement())
   content String @db.VarChar(255)

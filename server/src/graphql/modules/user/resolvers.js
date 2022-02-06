@@ -10,30 +10,10 @@ const resolvers = {
       const { prisma, user } = context
 
       const userInfo = await prisma.user.findUnique({
-        where: { id: user.id },
-        include: {
-          chats: {
-            include: {
-              users: true,
-              messages: {
-                take: 1,
-                include: { user: true },
-                orderBy: { id: 'desc' }
-              }
-            }
-          }
-        }
+        where: { id: user.id }
       })
 
-      const onlyLastMessage = userInfo.chats.map(chat => ({
-        ...chat,
-        lastMessage: chat.messages[0]
-      }))
-
-      return {
-        ...userInfo,
-        chats: onlyLastMessage
-      }
+      return userInfo
     })
   },
   Mutation: {
