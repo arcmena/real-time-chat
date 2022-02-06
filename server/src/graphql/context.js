@@ -1,7 +1,8 @@
-import { PrismaClient } from '@prisma/client'
 import { PubSub } from 'graphql-subscriptions'
 
-const prisma = new PrismaClient()
+import prismaClient from 'prismaClient'
+
+const prisma = prismaClient
 const pubsub = new PubSub()
 
 export const context = {
