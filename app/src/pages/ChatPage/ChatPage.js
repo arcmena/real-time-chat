@@ -1,6 +1,7 @@
-import { useUser } from 'contexts/UserContext'
 import { useState } from 'react'
 import { Route, Routes, useNavigate } from 'react-router-dom'
+
+import { useAuth } from 'contexts/AuthContext'
 
 import Chat from './components/Chat'
 import Chats from './components/Chats'
@@ -14,7 +15,7 @@ const Side = ({ children }) => {
 }
 
 const HomePage = () => {
-  const { username, logOut } = useUser()
+  const { me, logOut } = useAuth()
 
   const [activeChat, setActiveChat] = useState()
 
@@ -22,7 +23,7 @@ const HomePage = () => {
 
   return (
     <div>
-      <h1>{username}</h1>
+      <h1>{me.username}</h1>
       <button onClick={() => logOut(navigate)}>log out</button>
 
       <div style={{ display: 'flex' }}>

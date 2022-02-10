@@ -1,7 +1,7 @@
 const { useQuery, useMutation } = require('@apollo/client')
 const { CREATE_MESSAGE_MUTATION } = require('graphql/mutations/chat')
-const { MESSAGES_QUERY } = require('graphql/query/chat')
-const { NEW_MESSAGE_SUBSCRIPTION } = require('graphql/subscription/chat')
+const { MESSAGES_QUERY } = require('graphql/queries/chat')
+const { NEW_MESSAGE_SUBSCRIPTION } = require('graphql/subscriptions/chat')
 const { useRef, useEffect } = require('react')
 const { useParams } = require('react-router-dom')
 

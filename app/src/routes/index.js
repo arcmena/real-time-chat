@@ -5,17 +5,19 @@ import {
   Navigate
 } from 'react-router-dom'
 
-import HomePage from 'pages/HomePage/HomePage'
+import { AuthProvider } from 'contexts/AuthContext'
+
+import ChatPage from 'pages/ChatPage/ChatPage'
 import LoginPage from 'pages/LoginPage/LoginPage'
 
-import authStorage from 'lib/authStorage'
-import { UserProvider } from 'contexts/UserContext'
 import Layout from 'components/common/AppLayout'
 
+import authStorage from 'lib/authStorage'
+
 const Wrapper = ({ children }) => (
-  <UserProvider>
+  <AuthProvider>
     <Layout>{children}</Layout>
-  </UserProvider>
+  </AuthProvider>
 )
 
 const RequireAuth = ({ children }) => {
@@ -37,7 +39,7 @@ const AppRoutes = () => {
           path="/*"
           element={
             <RequireAuth>
-              <HomePage />
+              <ChatPage />
             </RequireAuth>
           }
         />

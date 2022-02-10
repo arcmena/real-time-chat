@@ -1,14 +1,14 @@
 import { useQuery } from '@apollo/client'
 import { createContext, useCallback, useContext } from 'react'
 
-import { ME_CHATS_QUERY } from 'graphql/query/user'
-import { NEW_CHAT_SUBSCRIPTION } from 'graphql/subscription/chat'
+import { ME_CHATS_QUERY } from 'graphql/queries/user'
+import { NEW_CHAT_SUBSCRIPTION } from 'graphql/subscriptions/chat'
 
 import authStorage from 'lib/authStorage'
 
-const UserContext = createContext({})
+const AuthContext = createContext({})
 
-const UserProvider = ({ children }) => {
+const AuthProvider = ({ children }) => {
   const {
     data,
     loading: loadingUser,
@@ -48,16 +48,16 @@ const UserProvider = ({ children }) => {
   }
 
   return (
-    <UserContext.Provider value={providerValue}>
+    <AuthContext.Provider value={providerValue}>
       {children}
-    </UserContext.Provider>
+    </AuthContext.Provider>
   )
 }
 
-const useUser = () => {
-  const context = useContext(UserContext)
+const useAuth = () => {
+  const context = useContext(AuthContext)
 
   return context
 }
 
-export { UserProvider, useUser }
+export { AuthProvider, useAuth }

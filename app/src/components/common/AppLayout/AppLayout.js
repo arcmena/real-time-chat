@@ -1,9 +1,9 @@
-import { useUser } from 'contexts/UserContext'
+import { useAuth } from 'contexts/AuthContext'
 
 import s from './AppLayout.module.css'
 
 const AppLayout = ({ children }) => {
-  const { loadingUser, errorUser } = useUser()
+  const { loadingUser, errorUser } = useAuth()
 
   if (loadingUser) {
     return <div className={s.root}>Loading...</div>
