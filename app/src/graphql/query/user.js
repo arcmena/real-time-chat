@@ -1,13 +1,22 @@
 import { gql } from '@apollo/client'
 
-export const ME_QUERY = gql`
-  query Me {
+export const ME_CHATS_QUERY = gql`
+  query MeChats {
     me {
       id
       username
-      chats {
+    }
+    chats {
+      id
+      users {
         id
-        users {
+        username
+      }
+      messages {
+        chatId
+        content
+        createdAt
+        user {
           id
           username
         }

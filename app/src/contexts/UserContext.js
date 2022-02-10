@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client'
 import { createContext, useCallback, useContext } from 'react'
 
-import { ME_QUERY } from 'graphql/query/user'
+import { ME_CHATS_QUERY } from 'graphql/query/user'
 import { NEW_CHAT_SUBSCRIPTION } from 'graphql/subscription/chat'
 
 import authStorage from 'lib/authStorage'
@@ -14,7 +14,7 @@ const UserProvider = ({ children }) => {
     loading: loadingUser,
     error: errorUser,
     subscribeToMore
-  } = useQuery(ME_QUERY)
+  } = useQuery(ME_CHATS_QUERY)
 
   const subscribeToNewChats = useCallback(
     () =>
@@ -26,10 +26,8 @@ const UserProvider = ({ children }) => {
           const newChat = subscriptionData.data.newChat
 
           return Object.assign({}, prev, {
-            me: {
-              ...prev.me,
-              chats: [...prev.me.chats, newChat]
-            }
+            ...prev,
+            chats: [...prev.chats, newChat]
           })
         }
       }),
@@ -42,7 +40,7 @@ const UserProvider = ({ children }) => {
   }, [])
 
   const providerValue = {
-    ...data?.me,
+    ...data,
     subscribeToNewChats,
     loadingUser,
     errorUser,

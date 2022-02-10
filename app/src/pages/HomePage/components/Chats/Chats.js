@@ -14,6 +14,7 @@ const Chats = ({ navigate, activeChat }) => {
 
   useEffect(() => {
     subscribeToNewChats()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const inputRef = useRef(null)
