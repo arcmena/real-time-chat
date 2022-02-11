@@ -12,15 +12,6 @@ export const ME_CHATS_QUERY = gql`
         id
         username
       }
-      messages {
-        chatId
-        content
-        createdAt
-        user {
-          id
-          username
-        }
-      }
     }
   }
 `
