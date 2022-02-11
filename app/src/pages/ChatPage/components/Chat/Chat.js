@@ -1,21 +1,30 @@
 import { useRef, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useQuery, useMutation } from '@apollo/client'
 
 import { MESSAGES_QUERY } from 'graphql/queries/chat'
 import { CREATE_MESSAGE_MUTATION } from 'graphql/mutations/chat'
 import { NEW_MESSAGE_SUBSCRIPTION } from 'graphql/subscriptions/chat'
 
-import { ChatContainer } from './Chat.styles'
+import { useAuth } from 'contexts/AuthContext'
+
+import { Button } from 'components/ui'
+
+import { getOtherUser } from 'utils/chatUtils'
+
+import { ChatContainer, ChatHeader, MessagesContainer } from './Chat.styles'
 
 const Chat = ({ setActiveChat }) => {
+  const { me } = useAuth()
+  const { id: currentUserId } = me
   const { chatId: paramChatId } = useParams()
 
   const chatId = Number(paramChatId)
 
-  useEffect(() => {
-    setActiveChat(chatId)
-  }, [chatId, setActiveChat])
+  const inputRef = useRef(null)
+  const bottomDivRef = useRef(null)
+
+  const navigate = useNavigate()
 
   const { data, loading, subscribeToMore } = useQuery(MESSAGES_QUERY, {
     variables: { data: { chatId: chatId } },
@@ -23,6 +32,11 @@ const Chat = ({ setActiveChat }) => {
   })
 
   const [sendMessage] = useMutation(CREATE_MESSAGE_MUTATION)
+
+  useEffect(() => {
+    setActiveChat(chatId)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chatId])
 
   useEffect(() => {
     subscribeToMore({
@@ -48,7 +62,11 @@ const Chat = ({ setActiveChat }) => {
     })
   }, [chatId, subscribeToMore])
 
-  const inputRef = useRef(null)
+  const focusOnBottonDiv = () => bottomDivRef.current.scrollIntoView()
+
+  useEffect(() => {
+    if (bottomDivRef.current !== null) focusOnBottonDiv()
+  }, [data])
 
   const onSubmit = e => {
     e.preventDefault()
@@ -68,22 +86,33 @@ const Chat = ({ setActiveChat }) => {
 
   return (
     <ChatContainer>
-      <header>chat with id {chatId}</header>
-      <main>
-        {loading && <>loading...</>}
-        <div>
-          <ul>
-            {data?.messages?.chat.messages.map(({ user, content, id }) => (
-              <li style={{ listStyle: 'none' }} key={id}>
-                {user.username}: {content}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <form onSubmit={onSubmit}>
-          <input type="text" name="content" ref={inputRef} autoComplete="off" />
-        </form>
-      </main>
+      {loading && <>loading...</>}
+      {data && (
+        <>
+          <ChatHeader>
+            <h1>
+              {getOtherUser(currentUserId, data.messages.chat.users).username}
+            </h1>
+
+            <Button onClick={() => navigate('/')}>X</Button>
+          </ChatHeader>
+          <MessagesContainer>
+            <ul>
+              {data?.messages?.chat.messages.map(
+                ({ user, content, id }, index) => (
+                  <li style={{ listStyle: 'none' }} key={id}>
+                    {user.username}: {content}
+                  </li>
+                )
+              )}
+            </ul>
+            <div ref={bottomDivRef} />
+          </MessagesContainer>
+        </>
+      )}
+      <form onSubmit={onSubmit}>
+        <input type="text" name="content" ref={inputRef} autoComplete="off" />
+      </form>
     </ChatContainer>
   )
 }

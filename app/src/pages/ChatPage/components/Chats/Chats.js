@@ -6,7 +6,7 @@ import { CREATE_CHAT_MUTATION } from 'graphql/mutations/chat'
 
 import { useAuth } from 'contexts/AuthContext'
 
-const getOtherUser = (id, users) => users.find(user => user.id !== id)
+import { getOtherUser } from 'utils/chatUtils'
 
 const Chats = ({ activeChat }) => {
   const { me, chats, subscribeToNewChats } = useAuth()
