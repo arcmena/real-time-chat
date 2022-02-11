@@ -1,4 +1,5 @@
 import { useAuth } from 'contexts/AuthContext'
+import useWindowSize from 'hooks/useWindowSize'
 
 import { Header } from '..'
 
@@ -6,6 +7,8 @@ import { MainLayoutContainer } from './MainLayout.styles'
 
 const MainLayout = ({ children }) => {
   const { loadingUser, errorUser } = useAuth()
+
+  const { width, height } = useWindowSize()
 
   if (loadingUser) {
     return <MainLayoutContainer>Loading...</MainLayoutContainer>
@@ -16,10 +19,10 @@ const MainLayout = ({ children }) => {
   }
 
   return (
-    <>
+    <MainLayoutContainer containerWidth={width} containerHeight={height}>
       <Header />
-      <MainLayoutContainer>{children}</MainLayoutContainer>
-    </>
+      {children}
+    </MainLayoutContainer>
   )
 }
 

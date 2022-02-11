@@ -5,4 +5,6 @@ export const ChatContainer = styled.div`
   flex-direction: column;
 
   width: 100%;
+
+  overflow-y: auto;
 `

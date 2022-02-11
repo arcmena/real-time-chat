@@ -67,7 +67,7 @@ const Chat = ({ setActiveChat }) => {
   }
 
   return (
-    <ChatContainer style={{ display: 'flex', flexDirection: 'column' }}>
+    <ChatContainer>
       <header>chat with id {chatId}</header>
       <main>
         {loading && <>loading...</>}

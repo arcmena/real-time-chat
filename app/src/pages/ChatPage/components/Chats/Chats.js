@@ -49,7 +49,7 @@ const Chats = ({ activeChat }) => {
             <li
               style={{
                 minHeight: '46px',
-                backgroundColor: activeChat === id ? '#28374d' : '#202c3d'
+                backgroundColor: activeChat === id && '#28374d'
               }}
               key={id}
               onClick={() => navigate(`/chat/${id}`)}

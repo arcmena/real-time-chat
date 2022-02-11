@@ -39,6 +39,10 @@ export const GlobalStyles = createGlobalStyle`
         height: 100%;
         background-color: var(--colors-background);
         color: var(--colors-primary-white);
+
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
     }
 
     :root {

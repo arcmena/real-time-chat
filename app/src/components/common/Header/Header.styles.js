@@ -4,10 +4,9 @@ export const HeaderContainer = styled.header`
   display: flex;
   justify-content: space-between;
 
-  padding: 1rem 1.5rem;
+  padding-bottom: 1rem;
 
-  max-width: 968px;
-  margin: 0 auto;
+  width: 100%;
 `
 
 export const Logo = styled.img`
