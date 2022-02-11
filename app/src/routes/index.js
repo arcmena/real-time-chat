@@ -10,7 +10,7 @@ import { AuthProvider } from 'contexts/AuthContext'
 import ChatPage from 'pages/ChatPage/ChatPage'
 import LoginPage from 'pages/LoginPage/LoginPage'
 
-import Layout from 'components/common/AppLayout'
+import Layout from 'components/common/MainLayout'
 
 import authStorage from 'lib/authStorage'
 

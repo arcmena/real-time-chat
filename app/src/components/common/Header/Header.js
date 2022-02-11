@@ -1,11 +1,28 @@
-import s from "./Header.module.css";
+import { useNavigate } from 'react-router-dom'
 
-import Logo from "../../../assets/img/arctichat-logo-white.png";
+import { useAuth } from 'contexts/AuthContext'
 
-const Header = () => (
-  <div className={s.root}>
-    <img src={Logo} alt="actichat" className={s.logo} />
-  </div>
-);
+import { Button } from 'components/ui'
 
-export default Header;
+import LogoImg from 'assets/img/arctichat-logo-white.png'
+
+import { HeaderContainer, Logo, UserInfo } from './Header.styles'
+
+const Header = () => {
+  const { me, logOut } = useAuth()
+
+  const navigate = useNavigate()
+
+  return (
+    <HeaderContainer>
+      <Logo src={LogoImg} alt="actichat" />
+
+      <UserInfo>
+        <h1>{me.username}</h1>
+        <Button onClick={() => logOut(navigate)}>log out</Button>
+      </UserInfo>
+    </HeaderContainer>
+  )
+}
+
+export default Header

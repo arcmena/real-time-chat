@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useMutation } from '@apollo/client'
+import { useNavigate } from 'react-router-dom'
 
 import { CREATE_CHAT_MUTATION } from 'graphql/mutations/chat'
 
@@ -7,11 +8,13 @@ import { useAuth } from 'contexts/AuthContext'
 
 const getOtherUser = (id, users) => users.find(user => user.id !== id)
 
-const Chats = ({ navigate, activeChat }) => {
+const Chats = ({ activeChat }) => {
   const { me, chats, subscribeToNewChats } = useAuth()
   const { id: currentUserId } = me
 
   const [createChat] = useMutation(CREATE_CHAT_MUTATION)
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     subscribeToNewChats()
