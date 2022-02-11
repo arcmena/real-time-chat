@@ -37,7 +37,6 @@ const Chats = ({ activeChat }) => {
 
   return (
     <>
-      <h2>Your Chats</h2>
       <div>
         <input type="text" name="createChat" id="createChat" ref={inputRef} />
         <button onClick={handleCreateChat}>create chat</button>

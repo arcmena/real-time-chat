@@ -6,4 +6,6 @@ export const MainLayoutContainer = styled.main`
 
   padding: 1rem 1.5rem;
   font-size: 1.5rem;
+
+  display: flex;
 `

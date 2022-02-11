@@ -1,9 +1,12 @@
-const { useQuery, useMutation } = require('@apollo/client')
-const { CREATE_MESSAGE_MUTATION } = require('graphql/mutations/chat')
-const { MESSAGES_QUERY } = require('graphql/queries/chat')
-const { NEW_MESSAGE_SUBSCRIPTION } = require('graphql/subscriptions/chat')
-const { useRef, useEffect } = require('react')
-const { useParams } = require('react-router-dom')
+import { useRef, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
+import { useQuery, useMutation } from '@apollo/client'
+
+import { MESSAGES_QUERY } from 'graphql/queries/chat'
+import { CREATE_MESSAGE_MUTATION } from 'graphql/mutations/chat'
+import { NEW_MESSAGE_SUBSCRIPTION } from 'graphql/subscriptions/chat'
+
+import { ChatContainer } from './Chat.styles'
 
 const Chat = ({ setActiveChat }) => {
   const { chatId: paramChatId } = useParams()
@@ -64,7 +67,7 @@ const Chat = ({ setActiveChat }) => {
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
+    <ChatContainer style={{ display: 'flex', flexDirection: 'column' }}>
       <header>chat with id {chatId}</header>
       <main>
         {loading && <>loading...</>}
@@ -81,7 +84,7 @@ const Chat = ({ setActiveChat }) => {
           <input type="text" name="content" ref={inputRef} autoComplete="off" />
         </form>
       </main>
-    </div>
+    </ChatContainer>
   )
 }
 
