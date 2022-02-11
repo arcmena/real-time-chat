@@ -84,6 +84,11 @@ const Chat = ({ setActiveChat }) => {
     inputRef.current.value = ''
   }
 
+  const closeChat = () => {
+    navigate('/')
+    setActiveChat()
+  }
+
   return (
     <ChatContainer>
       {loading && <>loading...</>}
@@ -94,7 +99,7 @@ const Chat = ({ setActiveChat }) => {
               {getOtherUser(currentUserId, data.messages.chat.users).username}
             </h1>
 
-            <Button onClick={() => navigate('/')}>X</Button>
+            <Button onClick={closeChat}>X</Button>
           </ChatHeader>
           <MessagesContainer>
             <ul>

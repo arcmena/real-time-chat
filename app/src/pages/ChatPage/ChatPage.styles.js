@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 export const SideBar = styled.aside`
   min-width: 300px;
+  overflow-y: auto;
 `
 
 export const ChatPageContainer = styled.div`

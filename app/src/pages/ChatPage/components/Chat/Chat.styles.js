@@ -22,7 +22,6 @@ export const ChatHeader = styled.header`
   button {
     color: var(--colors-primary-white);
     background-color: var(--colors-primary-gray);
-    border-radius: 50%;
     width: auto;
     padding: 0 1.2rem;
   }
