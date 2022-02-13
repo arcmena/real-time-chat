@@ -7,7 +7,7 @@ import { Button, Input } from 'components/ui'
 import { LOGIN_MUTATION } from 'graphql/mutations/user'
 import authStorage from 'lib/authStorage'
 
-import s from './LoginPage.module.css'
+import { LoginForm, LoginPageContainer } from './LoginPage.styles'
 
 // TODO: form validation with yup
 // TODO: styles
@@ -42,26 +42,30 @@ const LoginPage = () => {
   }
 
   return (
-    <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
-      <h1>Hello there!</h1>
-      <h2>To enter the chat you need to tell us your nickname :D</h2>
-      <Input
-        className={s.nickname}
-        placeholder="Your badass username here"
-        name="username"
-        {...register('username')}
-      />
-      <Input
-        className={s.nickname}
-        placeholder="Your password"
-        name="password"
-        type="password"
-        {...register('password')}
-      />
-      <Button className={cn(s.submit, isValid ? s.valid : s.invalid)}>
-        Enter!
-      </Button>
-    </form>
+    <LoginPageContainer>
+      <LoginForm onSubmit={handleSubmit(onSubmit)}>
+        <h1>Hello there!</h1>
+        <h2>
+          To enter the chat you need to tell us your username and password! :D
+        </h2>
+        <Input
+          className="field"
+          placeholder="Your badass username here"
+          name="username"
+          {...register('username')}
+        />
+        <Input
+          className="field"
+          placeholder="Your password"
+          name="password"
+          type="password"
+          {...register('password')}
+        />
+        <Button className={cn('submit', isValid ? 'valid' : 'invalid')}>
+          Enter!
+        </Button>
+      </LoginForm>
+    </LoginPageContainer>
   )
 }
 
