@@ -8,8 +8,9 @@ import { NEW_MESSAGE_SUBSCRIPTION } from 'graphql/subscriptions/chat'
 
 import { useAuth } from 'contexts/AuthContext'
 
-import { Button } from 'components/ui'
+import { Button, Input } from 'components/ui'
 import Message from '../Message'
+import SendIcon from 'assets/icons/send.svg'
 
 import { getOtherUser } from 'utils/chatUtils'
 
@@ -115,7 +116,16 @@ const Chat = ({ setActiveChat }) => {
         </>
       )}
       <form onSubmit={onSubmit}>
-        <input type="text" name="content" ref={inputRef} autoComplete="off" />
+        <Input
+          className="field"
+          type="text"
+          name="content"
+          ref={inputRef}
+          autoComplete="off"
+        />
+        <Button type="submit">
+          <img src={SendIcon} alt="send" width="27" height="27" />
+        </Button>
       </form>
     </ChatContainer>
   )
