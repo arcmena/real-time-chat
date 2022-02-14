@@ -30,4 +30,8 @@ export const ChatHeader = styled.header`
 export const MessagesContainer = styled.div`
   height: 100%;
   overflow-y: auto;
+
+  ul {
+    margin: 0 1.7rem;
+  }
 `

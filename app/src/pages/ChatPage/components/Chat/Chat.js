@@ -9,6 +9,7 @@ import { NEW_MESSAGE_SUBSCRIPTION } from 'graphql/subscriptions/chat'
 import { useAuth } from 'contexts/AuthContext'
 
 import { Button } from 'components/ui'
+import Message from '../Message'
 
 import { getOtherUser } from 'utils/chatUtils'
 
@@ -103,13 +104,11 @@ const Chat = ({ setActiveChat }) => {
           </ChatHeader>
           <MessagesContainer>
             <ul>
-              {data?.messages?.chat.messages.map(
-                ({ user, content, id }, index) => (
-                  <li style={{ listStyle: 'none' }} key={id}>
-                    {user.username}: {content}
-                  </li>
-                )
-              )}
+              {data?.messages?.chat.messages.map(message => (
+                <li style={{ listStyle: 'none' }} key={message.id}>
+                  <Message message={message} />
+                </li>
+              ))}
             </ul>
             <div ref={bottomDivRef} />
           </MessagesContainer>
