@@ -10,6 +10,14 @@ export const GlobalStyles = createGlobalStyle`
         -moz-osx-font-smoothing: grayscale;
     }
 
+    ::-webkit-scrollbar{
+        width: 4px;
+    }
+    ::-webkit-scrollbar-thumb{
+        background-color: var(--colors-primary-green);
+        border-radius: 30px;
+    }
+
     code {
         font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
             monospace;
