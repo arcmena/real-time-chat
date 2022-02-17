@@ -69,4 +69,8 @@ export const MessagesContainer = styled.div`
   ul {
     margin: 0 1.7rem;
   }
+
+  li:first-child {
+    margin-top: 1rem;
+  }
 `

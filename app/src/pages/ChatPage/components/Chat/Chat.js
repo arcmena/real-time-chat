@@ -73,7 +73,9 @@ const Chat = ({ setActiveChat }) => {
   const onSubmit = e => {
     e.preventDefault()
 
-    if (!inputRef.current.value) return
+    const treated = inputRef.current.value.replaceAll(/\s/g, '')
+
+    if (!treated) return
 
     const content = inputRef.current.value
 
