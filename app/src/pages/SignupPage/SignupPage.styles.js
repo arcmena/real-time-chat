@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const LoginPageContainer = styled.div`
+export const SignupPageContainer = styled.div`
   background-color: var(--colors-primary-white);
   -webkit-box-shadow: 6px 4px 0px 2px var(--colors-primary-green);
   -moz-box-shadow: 6px 4px 0px 2px var(--colors-primary-green);
@@ -16,13 +16,25 @@ export const LoginPageContainer = styled.div`
   }
 `
 
-export const LoginForm = styled.form`
+export const SignupForm = styled.form`
   font-size: 1.3rem;
 
   color: var(--colors-primary-black);
 
+  p {
+    margin-top: 0.7rem;
+  }
+
+  p:last-of-type {
+    margin-bottom: 2rem;
+  }
+
   .field {
-    margin: 3rem 0;
+    margin-top: 2rem;
+
+    &:last-of-type {
+      margin-bottom: 2rem;
+    }
 
     -webkit-box-shadow: 2px 2px 0px 0px var(--colors-primary-gray);
     -moz-box-shadow: 2px 2px 0px 0px var(--colors-primary-gray);
@@ -64,15 +76,5 @@ export const LoginForm = styled.form`
     background-color: var(--colors-primary-gray);
 
     cursor: not-allowed;
-  }
-`
-
-export const SignupRedirect = styled.h3`
-  text-align: right;
-
-  margin-top: 2rem;
-
-  a {
-    color: var(--colors-primary-green);
   }
 `

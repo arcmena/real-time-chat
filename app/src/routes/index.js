@@ -9,6 +9,7 @@ import { AuthProvider } from 'contexts/AuthContext'
 
 import ChatPage from 'pages/ChatPage/ChatPage'
 import LoginPage from 'pages/LoginPage/LoginPage'
+import SignupPage from 'pages/SignupPage/SignupPage'
 
 import Layout from 'components/common/MainLayout'
 
@@ -35,6 +36,7 @@ const AppRoutes = () => {
     <Router>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
         <Route
           path="/*"
           element={

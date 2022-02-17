@@ -1,13 +1,17 @@
 import { useMutation } from '@apollo/client'
 import cn from 'classnames'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { Button, Input } from 'components/ui'
 import { LOGIN_MUTATION } from 'graphql/mutations/user'
 import authStorage from 'lib/authStorage'
 
-import { LoginForm, LoginPageContainer } from './LoginPage.styles'
+import {
+  LoginForm,
+  LoginPageContainer,
+  SignupRedirect
+} from './LoginPage.styles'
 
 // TODO: form validation with yup
 // TODO: styles
@@ -64,6 +68,10 @@ const LoginPage = () => {
         <Button className={cn('submit', isValid ? 'valid' : 'invalid')}>
           Enter!
         </Button>
+
+        <SignupRedirect>
+          Don't have an account? <Link to="/signup">Sign up</Link>
+        </SignupRedirect>
       </LoginForm>
     </LoginPageContainer>
   )
